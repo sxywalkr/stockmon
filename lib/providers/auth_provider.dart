@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:noteapp/models/user_model.dart';
+import 'package:mergers/models/user_model.dart';
 
 enum Status {
   Uninitialized,
@@ -77,7 +77,7 @@ class AuthProvider extends ChangeNotifier {
 
       return _userFromFirebase(result.user);
     } catch (e) {
-      print("Error on the new user registration = " +e.toString());
+      print("Error on the new user registration = " + e.toString());
       _status = Status.Unauthenticated;
       notifyListeners();
       return null;
@@ -92,7 +92,7 @@ class AuthProvider extends ChangeNotifier {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return true;
     } catch (e) {
-      print("Error on the sign in = " +e.toString());
+      print("Error on the sign in = " + e.toString());
       _status = Status.Unauthenticated;
       notifyListeners();
       return false;

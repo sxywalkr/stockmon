@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:noteapp/app_localizations.dart';
-import 'package:noteapp/routes.dart';
+import 'package:mergers/app_localizations.dart';
+import 'package:mergers/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       children: <Widget>[
         Center(
             child: Text(
-              AppLocalizations.of(context).translate("splashTitle"),
+          AppLocalizations.of(context).translate("splashTitle"),
           style: TextStyle(
             fontSize: Theme.of(context).textTheme.headline.fontSize,
           ),

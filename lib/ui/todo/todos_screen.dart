@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:noteapp/app_localizations.dart';
-import 'package:noteapp/models/todo_model.dart';
-import 'package:noteapp/models/user_model.dart';
-import 'package:noteapp/providers/auth_provider.dart';
-import 'package:noteapp/routes.dart';
-import 'package:noteapp/services/firestore_database.dart';
-import 'package:noteapp/ui/todo/empty_content.dart';
-import 'package:noteapp/ui/todo/todos_extra_actions.dart';
+import 'package:mergers/app_localizations.dart';
+import 'package:mergers/models/todo_model.dart';
+import 'package:mergers/models/user_model.dart';
+import 'package:mergers/providers/auth_provider.dart';
+import 'package:mergers/routes.dart';
+import 'package:mergers/services/firestore_database.dart';
+import 'package:mergers/ui/todo/empty_content.dart';
+import 'package:mergers/ui/todo/todos_extra_actions.dart';
 import 'package:provider/provider.dart';
 
 class TodosScreen extends StatelessWidget {
@@ -26,7 +26,9 @@ class TodosScreen extends StatelessWidget {
             builder: (context, snapshot) {
               final UserModel user = snapshot.data;
               return Text(user != null
-                  ? user.email + " - " + AppLocalizations.of(context).translate("homeAppBarTitle")
+                  ? user.email +
+                      " - " +
+                      AppLocalizations.of(context).translate("homeAppBarTitle")
                   : AppLocalizations.of(context).translate("homeAppBarTitle"));
             }),
         actions: <Widget>[
@@ -83,7 +85,8 @@ class TodosScreen extends StatelessWidget {
                       color: Colors.red,
                       child: Center(
                           child: Text(
-                            AppLocalizations.of(context).translate("todosDismissibleMsgTxt"),
+                        AppLocalizations.of(context)
+                            .translate("todosDismissibleMsgTxt"),
                         style: TextStyle(color: Theme.of(context).canvasColor),
                       )),
                     ),
@@ -94,13 +97,16 @@ class TodosScreen extends StatelessWidget {
                       _scaffoldKey.currentState.showSnackBar(SnackBar(
                         backgroundColor: Theme.of(context).appBarTheme.color,
                         content: Text(
-                          AppLocalizations.of(context).translate("todosSnackBarContent") + todos[index].task,
+                          AppLocalizations.of(context)
+                                  .translate("todosSnackBarContent") +
+                              todos[index].task,
                           style:
                               TextStyle(color: Theme.of(context).canvasColor),
                         ),
                         duration: Duration(seconds: 3),
                         action: SnackBarAction(
-                          label: AppLocalizations.of(context).translate("todosSnackBarActionLbl"),
+                          label: AppLocalizations.of(context)
+                              .translate("todosSnackBarActionLbl"),
                           textColor: Theme.of(context).canvasColor,
                           onPressed: () {
                             firestoreDatabase.setTodo(todos[index]);
@@ -133,14 +139,18 @@ class TodosScreen extends StatelessWidget {
               );
             } else {
               return EmptyContentWidget(
-                title: AppLocalizations.of(context).translate("todosEmptyTopMsgDefaultTxt"),
-                message: AppLocalizations.of(context).translate("todosEmptyBottomDefaultMsgTxt"),
+                title: AppLocalizations.of(context)
+                    .translate("todosEmptyTopMsgDefaultTxt"),
+                message: AppLocalizations.of(context)
+                    .translate("todosEmptyBottomDefaultMsgTxt"),
               );
             }
           } else if (snapshot.hasError) {
             return EmptyContentWidget(
-              title: AppLocalizations.of(context).translate("todosErrorTopMsgTxt"),
-              message: AppLocalizations.of(context).translate("todosErrorBottomMsgTxt"),
+              title:
+                  AppLocalizations.of(context).translate("todosErrorTopMsgTxt"),
+              message: AppLocalizations.of(context)
+                  .translate("todosErrorBottomMsgTxt"),
             );
           }
           return Center(child: CircularProgressIndicator());
