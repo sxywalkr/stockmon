@@ -11,6 +11,8 @@ import 'package:mergers/ui/penyedia/penyedia_screen.dart';
 import 'package:mergers/ui/penyedia/create_edit_penyedia_screen.dart';
 import 'package:mergers/ui/personel/personel_screen.dart';
 import 'package:mergers/ui/personel/create_edit_personel_screen.dart';
+import 'package:mergers/ui/pengalaman/pengalaman_screen.dart';
+import 'package:mergers/ui/pengalaman/create_edit_pengalaman_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -27,6 +29,8 @@ class Routes {
   static const String create_edit_penyedia = '/create_edit_penyedia';
   static const String personel = '/personel';
   static const String create_edit_personel = '/create_edit_personel';
+  static const String pengalaman = '/pengalaman';
+  static const String create_edit_pengalaman = '/create_edit_pengalaman';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -40,5 +44,8 @@ class Routes {
     create_edit_penyedia: (BuildContext context) => CreateEditPenyediaScreen(),
     personel: (BuildContext context) => PersonelScreen(),
     create_edit_personel: (BuildContext context) => CreateEditPersonelScreen(),
+    pengalaman: (BuildContext context) => PengalamanScreen(),
+    create_edit_pengalaman: (BuildContext context) =>
+        CreateEditPengalamanScreen(),
   };
 }

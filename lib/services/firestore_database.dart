@@ -7,6 +7,7 @@ import 'package:mergers/services/firestore_path.dart';
 import 'package:mergers/services/firestore_service.dart';
 import 'package:mergers/models/penyedia_model.dart';
 import 'package:mergers/models/personel_model.dart';
+import 'package:mergers/models/pengalaman_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -106,5 +107,20 @@ class FirestoreDatabase {
       _firestoreService.collectionStream(
         path: FirestorePath.personels(),
         builder: (data, documentId) => PersonelModel.fromMap(data, documentId),
+      );
+
+  // ***** Pengalaman
+  //Method to create/update todoModel
+  Future<void> setPengalaman(PengalamanModel pengalaman) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.pengalaman(pengalaman.id),
+        data: pengalaman.toMap(),
+      );
+  //Method to retrieve all todos item from the same user based on uid
+  Stream<List<PengalamanModel>> pengalamansStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.pengalamans(),
+        builder: (data, documentId) =>
+            PengalamanModel.fromMap(data, documentId),
       );
 }
