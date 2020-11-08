@@ -6,11 +6,13 @@ import 'package:mergers/providers/theme_provider.dart';
 import 'package:mergers/routes.dart';
 import 'package:mergers/ui/setting/setting_language_actions.dart';
 import 'package:provider/provider.dart';
+import 'package:mergers/ui/drawer/app_drawer.dart';
 
 class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate("settingAppTitle")),
       ),

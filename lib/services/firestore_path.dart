@@ -10,4 +10,7 @@ class FirestorePath {
 
   static String penyedia(String penyediaId) => 'masterPenyedia/$penyediaId';
   static String penyedias() => 'masterPenyedia';
+
+  static String personel(String personelId) => 'masterPersonel/$personelId';
+  static String personels() => 'masterPersonel';
 }

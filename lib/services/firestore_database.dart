@@ -6,6 +6,7 @@ import 'package:mergers/models/todo_model.dart';
 import 'package:mergers/services/firestore_path.dart';
 import 'package:mergers/services/firestore_service.dart';
 import 'package:mergers/models/penyedia_model.dart';
+import 'package:mergers/models/personel_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -91,5 +92,19 @@ class FirestoreDatabase {
       _firestoreService.collectionStream(
         path: FirestorePath.penyedias(),
         builder: (data, documentId) => PenyediaModel.fromMap(data, documentId),
+      );
+
+  // ***** Personel
+  //Method to create/update todoModel
+  Future<void> setPersonel(PersonelModel personel) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.personel(personel.id),
+        data: personel.toMap(),
+      );
+  //Method to retrieve all todos item from the same user based on uid
+  Stream<List<PersonelModel>> personelsStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.personels(),
+        builder: (data, documentId) => PersonelModel.fromMap(data, documentId),
       );
 }

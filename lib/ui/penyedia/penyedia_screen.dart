@@ -10,7 +10,7 @@ import 'package:mergers/services/firestore_database.dart';
 import 'package:provider/provider.dart';
 
 import 'package:mergers/models/penyedia_model.dart';
-import 'package:mergers/ui/home2/empty_content.dart';
+import 'package:mergers/ui/penyedia/empty_content.dart';
 
 import 'package:docx_template/docx_template.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,7 +18,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:mergers/ui/drawer/app_drawer.dart';
 
-class Home2Screen extends StatelessWidget {
+class PenyediaScreen extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void genDocxKualifikasi(PenyediaModel a) async {
@@ -122,34 +122,7 @@ class Home2Screen extends StatelessWidget {
       key: _scaffoldKey,
       drawer: AppDrawer(),
       appBar: AppBar(
-        title: StreamBuilder(
-            stream: authProvider.user,
-            builder: (context, snapshot) {
-              // final UserModel user = snapshot.data;
-              return Text('Dashboard');
-            }),
-        actions: <Widget>[
-          // StreamBuilder(
-          //     stream: firestoreDatabase.penyediasStream(),
-          //     builder: (context, snapshot) {
-          //       if (snapshot.hasData) {
-          //         List<PenyediaModel> penyedias = snapshot.data;
-          //         return Visibility(
-          //             visible: penyedias.isNotEmpty ? true : false,
-          //             child: Text('--')); //TodosExtraActions());
-          //       } else {
-          //         return Container(
-          //           width: 0,
-          //           height: 0,
-          //         );
-          //       }
-          //     }),
-          // IconButton(
-          //     icon: Icon(Icons.settings),
-          //     onPressed: () {
-          //       Navigator.of(context).pushNamed(Routes.setting);
-          //     }),
-        ],
+        title: Text('Master Penyedia'),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -159,9 +132,8 @@ class Home2Screen extends StatelessWidget {
           );
         },
       ),
-      body: Text('home2'),
-      // WillPopScope(
-      //     onWillPop: () async => false, child: _buildBodySection(context)),
+      body: WillPopScope(
+          onWillPop: () async => false, child: _buildBodySection(context)),
     );
   }
 

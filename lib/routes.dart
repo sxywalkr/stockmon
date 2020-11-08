@@ -5,8 +5,12 @@ import 'package:mergers/ui/setting/setting_screen.dart';
 import 'package:mergers/ui/splash/splash_screen.dart';
 import 'package:mergers/ui/todo/create_edit_todo_screen.dart';
 import 'package:mergers/ui/todo/todos_screen.dart';
+
 import 'package:mergers/ui/home2/home2_screen.dart';
-import 'package:mergers/ui/home2/create_edit_penyedia_screen.dart';
+import 'package:mergers/ui/penyedia/penyedia_screen.dart';
+import 'package:mergers/ui/penyedia/create_edit_penyedia_screen.dart';
+import 'package:mergers/ui/personel/personel_screen.dart';
+import 'package:mergers/ui/personel/create_edit_personel_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -17,8 +21,12 @@ class Routes {
   static const String home = '/home';
   static const String setting = '/setting';
   static const String create_edit_todo = '/create_edit_todo';
+
   static const String home2 = '/home2';
+  static const String penyedia = '/penyedia';
   static const String create_edit_penyedia = '/create_edit_penyedia';
+  static const String personel = '/personel';
+  static const String create_edit_personel = '/create_edit_personel';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -28,6 +36,9 @@ class Routes {
     setting: (BuildContext context) => SettingScreen(),
     create_edit_todo: (BuildContext context) => CreateEditTodoScreen(),
     home2: (BuildContext context) => Home2Screen(),
+    penyedia: (BuildContext context) => PenyediaScreen(),
     create_edit_penyedia: (BuildContext context) => CreateEditPenyediaScreen(),
+    personel: (BuildContext context) => PersonelScreen(),
+    create_edit_personel: (BuildContext context) => CreateEditPersonelScreen(),
   };
 }
