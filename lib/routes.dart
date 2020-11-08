@@ -5,6 +5,8 @@ import 'package:mergers/ui/setting/setting_screen.dart';
 import 'package:mergers/ui/splash/splash_screen.dart';
 import 'package:mergers/ui/todo/create_edit_todo_screen.dart';
 import 'package:mergers/ui/todo/todos_screen.dart';
+import 'package:mergers/ui/home2/home2_screen.dart';
+import 'package:mergers/ui/home2/create_edit_penyedia_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -15,6 +17,8 @@ class Routes {
   static const String home = '/home';
   static const String setting = '/setting';
   static const String create_edit_todo = '/create_edit_todo';
+  static const String home2 = '/home2';
+  static const String create_edit_penyedia = '/create_edit_penyedia';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -23,5 +27,7 @@ class Routes {
     home: (BuildContext context) => TodosScreen(),
     setting: (BuildContext context) => SettingScreen(),
     create_edit_todo: (BuildContext context) => CreateEditTodoScreen(),
+    home2: (BuildContext context) => Home2Screen(),
+    create_edit_penyedia: (BuildContext context) => CreateEditPenyediaScreen(),
   };
 }
