@@ -20,91 +20,75 @@ import 'package:permission_handler/permission_handler.dart';
 class Home2Screen extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void genDocx() async {
+  void genDocxKualifikasi(PenyediaModel a) async {
     FilePickerResult result = await FilePicker.platform.pickFiles();
 
     if (result == null) {
       print('no file selected');
     }
     File file = File(result.files.single.path);
-
-    // final f = File("./template.docx");
+    print(file.absolute);
     final docx = await DocxTemplate.fromBytes(await file.readAsBytes());
+    try {
+      Content c = Content();
+      c
+            ..add(TextContent('aNamaBadanUsaha', a.aNamaBadanUsaha))
+            ..add(TextContent('aAlamatPusat', a.aAlamatPusat))
+            ..add(TextContent('aTelpPusat', a.aTelpPusat))
+            ..add(TextContent('aFaxPusat', a.aFaxPusat))
+            ..add(TextContent('aEmailPusat', a.aEmailPusat))
+            ..add(TextContent('bNomor', a.bNomor))
+            ..add(TextContent('bTanggal', a.bTanggal))
+            ..add(TextContent('bNamaNotaris', a.bNamaNotaris))
+            ..add(TextContent('bNomorPengesahan', a.bNomorPengesahan))
+            ..add(TextContent('cNama', a.cNama))
+            ..add(TextContent('cNomor', a.cNomor))
+            ..add(TextContent('cJabatan', a.cJabatan))
+            ..add(TextContent('dNomor', a.dNomor))
+            ..add(TextContent('dTanggal', a.dTanggal))
+            ..add(TextContent('dMasa', a.dMasa))
+            ..add(TextContent('dInstansi', a.dInstansi))
+            ..add(TextContent('eNomor', a.eNomor))
+            ..add(TextContent('eTanggal', a.eTanggal))
+            ..add(TextContent('eMasa', a.eMasa))
+            ..add(TextContent('eInstansi', a.eInstansi))
+            ..add(TextContent('eKualifikasi', a.eKualifikasi))
+            ..add(TextContent('eKlasifikasi', a.eKlasifikasi))
+            ..add(TextContent('eSubKlasifikasi', a.eSubKlasifikasi))
+            ..add(TextContent('fNomor', a.fNomor))
+            ..add(TextContent('fTanggal', a.fTanggal))
+            ..add(TextContent('fMasa', a.fMasa))
+            ..add(TextContent('fInstansi', a.fInstansi))
+            ..add(TextContent('g1Nama', a.g1Nama))
+            ..add(TextContent('g1Identitas', a.g1Identitas))
+            ..add(TextContent('g1Alamat', a.g1Alamat))
+            ..add(TextContent('g1Persentase', a.g1Persentase))
+            ..add(TextContent('g2Npwp', a.g2Npwp))
+            ..add(TextContent('g2Nomor', a.g2Nomor))
+            ..add(TextContent('g2Tanggal', a.g2Tanggal))
+          // ..add(TextContent("aTtd", "Remark for last doc"))
+          ;
 
-    Content c = Content();
-    c
-      ..add(TextContent("docname", "Simple docname for sxywalkr"))
-      ..add(TextContent("passport", "Passport NE0323 4456673"))
-      ..add(TableContent("table", [
-        RowContent()
-          ..add(TextContent("key1", "Paul"))
-          ..add(TextContent("key2", "Viberg"))
-          ..add(TextContent("key3", "Engineer")),
-        RowContent()
-          ..add(TextContent("key1", "Alex"))
-          ..add(TextContent("key2", "Houser"))
-          ..add(TextContent("key3", "CEO & Founder"))
-          ..add(ListContent("tablelist", [
-            TextContent("value", "Mercedes-Benz C-Class S205"),
-            TextContent("value", "Lexus LX 570")
-          ]))
-      ]))
-      ..add(ListContent("list", [
-        TextContent("value", "Engine")
-          ..add(ListContent("listnested", [
-            TextContent("value", "BMW M30"),
-            TextContent("value", "2GZ GE")
-          ])),
-        TextContent("value", "Gearbox"),
-        TextContent("value", "Chassis")
-      ]))
-      ..add(ListContent("plainlist", [
-        PlainContent("plainview")
-          ..add(TableContent("table", [
-            RowContent()
-              ..add(TextContent("key1", "Paul"))
-              ..add(TextContent("key2", "Viberg"))
-              ..add(TextContent("key3", "Engineer")),
-            RowContent()
-              ..add(TextContent("key1", "Alex"))
-              ..add(TextContent("key2", "Houser"))
-              ..add(TextContent("key3", "CEO & Founder"))
-              ..add(ListContent("tablelist", [
-                TextContent("value", "Mercedes-Benz C-Class S205"),
-                TextContent("value", "Lexus LX 570")
-              ]))
-          ])),
-        PlainContent("plainview")
-          ..add(TableContent("table", [
-            RowContent()
-              ..add(TextContent("key1", "Nathan"))
-              ..add(TextContent("key2", "Anceaux"))
-              ..add(TextContent("key3", "Music artist"))
-              ..add(ListContent(
-                  "tablelist", [TextContent("value", "Peugeot 508")])),
-            RowContent()
-              ..add(TextContent("key1", "Louis"))
-              ..add(TextContent("key2", "Houplain"))
-              ..add(TextContent("key3", "Music artist"))
-              ..add(ListContent("tablelist", [
-                TextContent("value", "Range Rover Velar"),
-                TextContent("value", "Lada Vesta SW Sport")
-              ]))
-          ])),
-      ]));
+      final d = await docx.generate(c);
 
-    final d = await docx.generate(c);
-
-    final Directory extDir = await getExternalStorageDirectory();
-    final String dirPath = extDir.path.toString().substring(0, 20);
-    await Directory(dirPath).create(recursive: true);
-    final String filePath = '$dirPath';
-    final of = new File('$filePath' + 'Pictures/generated.docx');
-    var status = await Permission.storage.status;
-    if (!status.isGranted) {
-      await Permission.storage.request();
+      final Directory extDir = await getExternalStorageDirectory();
+      final String dirPath = extDir.path.toString().substring(0, 20);
+      await Directory(dirPath).create(recursive: true);
+      final String filePath = '$dirPath';
+      final of = new File('$filePath' +
+          'Pictures/generated Docx Kualifikasi ${a.aNamaBadanUsaha}.docx');
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+      await of.writeAsBytes(d);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Docx Kualifikasi ${a.aNamaBadanUsaha} selesai dibuat'),
+        duration: Duration(seconds: 3),
+      ));
+    } catch (err) {
+      print(err);
     }
-    await of.writeAsBytes(d);
   }
 
   @override
@@ -149,11 +133,6 @@ class Home2Screen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.setting);
               }),
-          IconButton(
-              icon: Icon(Icons.work),
-              onPressed: () {
-                genDocx();
-              }),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -164,18 +143,8 @@ class Home2Screen extends StatelessWidget {
           );
         },
       ),
-      body:
-          // Center(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: <Widget>[
-          //       Text('title'),
-          //       Text('message'),
-          //     ],
-          //   ),
-          // )
-          WillPopScope(
-              onWillPop: () async => false, child: _buildBodySection(context)),
+      body: WillPopScope(
+          onWillPop: () async => false, child: _buildBodySection(context)),
     );
   }
 
@@ -238,6 +207,11 @@ class Home2Screen extends StatelessWidget {
                       //       firestoreDatabase.setTodo(todo);
                       //     }),
                       title: Text(penyedias[index].aNamaBadanUsaha),
+                      trailing: IconButton(
+                          icon: Icon(Icons.print),
+                          onPressed: () {
+                            genDocxKualifikasi(penyedias[index]);
+                          }),
                       onTap: () {
                         Navigator.of(context).pushNamed(
                             Routes.create_edit_penyedia,

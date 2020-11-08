@@ -1,18 +1,27 @@
 import 'dart:io';
 
-import 'package:docx_template/src/template.dart';
-import 'package:docx_template/src/model.dart';
+import 'package:docx_template/docx_template.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 ///
 /// Read file template.docx, produce it and save
 ///
 void genDocx() async {
-  final f = File("mDoc.docx");
-  final docx = await DocxTemplate.fromBytes(await f.readAsBytes());
+  FilePickerResult result = await FilePicker.platform.pickFiles();
+
+  if (result == null) {
+    print('no file selected');
+  }
+  File file = File(result.files.single.path);
+
+  // final f = File("./template.docx");
+  final docx = await DocxTemplate.fromBytes(await file.readAsBytes());
 
   Content c = Content();
   c
-    ..add(TextContent("docname", "Simple docname"))
+    ..add(TextContent("docname", "Simple docname for sxywalkr"))
     ..add(TextContent("passport", "Passport NE0323 4456673"))
     ..add(TableContent("table", [
       RowContent()
@@ -71,6 +80,15 @@ void genDocx() async {
     ]));
 
   final d = await docx.generate(c);
-  final of = File('generated.docx');
+
+  final Directory extDir = await getExternalStorageDirectory();
+  final String dirPath = extDir.path.toString().substring(0, 20);
+  await Directory(dirPath).create(recursive: true);
+  final String filePath = '$dirPath';
+  final of = new File('$filePath' + 'Pictures/generated.docx');
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
   await of.writeAsBytes(d);
 }
