@@ -13,6 +13,8 @@ import 'package:mergers/ui/personel/personel_screen.dart';
 import 'package:mergers/ui/personel/create_edit_personel_screen.dart';
 import 'package:mergers/ui/pengalaman/pengalaman_screen.dart';
 import 'package:mergers/ui/pengalaman/create_edit_pengalaman_screen.dart';
+import 'package:mergers/ui/peralatan/peralatan_screen.dart';
+import 'package:mergers/ui/peralatan/create_edit_peralatan_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -31,6 +33,8 @@ class Routes {
   static const String create_edit_personel = '/create_edit_personel';
   static const String pengalaman = '/pengalaman';
   static const String create_edit_pengalaman = '/create_edit_pengalaman';
+  static const String peralatan = '/peralatan';
+  static const String create_edit_peralatan = '/create_edit_peralatan';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -47,5 +51,8 @@ class Routes {
     pengalaman: (BuildContext context) => PengalamanScreen(),
     create_edit_pengalaman: (BuildContext context) =>
         CreateEditPengalamanScreen(),
+    peralatan: (BuildContext context) => PeralatanScreen(),
+    create_edit_peralatan: (BuildContext context) =>
+        CreateEditPeralatanScreen(),
   };
 }

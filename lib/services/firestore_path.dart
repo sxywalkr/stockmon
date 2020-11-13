@@ -17,4 +17,7 @@ class FirestorePath {
   static String pengalaman(String pengalamanId) =>
       'masterPengalaman/$pengalamanId';
   static String pengalamans() => 'masterPengalaman';
+
+  static String peralatan(String peralatanId) => 'masterPeralatan/$peralatanId';
+  static String peralatans() => 'masterPeralatan';
 }

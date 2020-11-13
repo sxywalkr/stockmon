@@ -91,7 +91,7 @@ class PenyediaModel {
     String bNomor = data['bNomor'];
     String bTanggal = data['bTanggal'];
     String bNamaNotaris = data['bNamaNotaris'];
-    String bNomorPengesahan = data['bNamaPengesahan'];
+    String bNomorPengesahan = data['bNomorPengesahan'];
     String cNama = data['cNama'];
     String cNomor = data['cNomor'];
     String cJabatan = data['cJabatan'];

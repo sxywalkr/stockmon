@@ -58,6 +58,14 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
+            leading: Icon(Icons.support),
+            title: Text('Data Peralatan'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(Routes.peralatan);
+            },
+          ),
+          Divider(),
+          ListTile(
             leading: Icon(Icons.settings),
             title: Text('Setting'),
             onTap: () {
