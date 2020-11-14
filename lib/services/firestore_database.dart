@@ -9,6 +9,8 @@ import 'package:mergers/models/penyedia_model.dart';
 import 'package:mergers/models/personel_model.dart';
 import 'package:mergers/models/pengalaman_model.dart';
 import 'package:mergers/models/peralatan_model.dart';
+import 'package:mergers/models/mergr_penyedia_model.dart';
+import 'package:mergers/models/mergr_peralatan_detail_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -137,5 +139,36 @@ class FirestoreDatabase {
       _firestoreService.collectionStream(
         path: FirestorePath.peralatans(),
         builder: (data, documentId) => PeralatanModel.fromMap(data, documentId),
+      );
+
+  // ***** Mergr Penyedia
+  //Method to create/update todoModel
+  Future<void> setMergrPenyedia(MergrPenyediaModel mergrPenyedia) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.mergrPenyedia(mergrPenyedia.id),
+        data: mergrPenyedia.toMap(),
+      );
+  //Method to retrieve all todos item from the same user based on uid
+  Stream<List<MergrPenyediaModel>> mergrPenyediasStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.mergrPenyedias(),
+        builder: (data, documentId) =>
+            MergrPenyediaModel.fromMap(data, documentId),
+      );
+
+  // ***** Mergr Peralatan Detail
+  //Method to create/update todoModel
+  Future<void> setMergrPeralatanDetail(
+          MergrPeralatanDetailModel mergrPeralatanDetail) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.mergrPeralatanDetail(mergrPeralatanDetail.id),
+        data: mergrPeralatanDetail.toMap(),
+      );
+  //Method to retrieve all todos item from the same user based on uid
+  Stream<List<MergrPeralatanDetailModel>> mergrPeralatanDetailsStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.mergrPeralatanDetails(),
+        builder: (data, documentId) =>
+            MergrPeralatanDetailModel.fromMap(data, documentId),
       );
 }

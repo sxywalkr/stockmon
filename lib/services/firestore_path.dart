@@ -20,4 +20,12 @@ class FirestorePath {
 
   static String peralatan(String peralatanId) => 'masterPeralatan/$peralatanId';
   static String peralatans() => 'masterPeralatan';
+
+  static String mergrPenyedia(String mergrPenyediaId) =>
+      'mergrPenyedia/$mergrPenyediaId';
+  static String mergrPenyedias() => 'mergrPenyedia';
+
+  static String mergrPeralatanDetail(String mergrPeralatanDetailId) =>
+      'mergrPeralatanDetail/$mergrPeralatanDetailId';
+  static String mergrPeralatanDetails() => 'mergrPeralatanDetail';
 }
