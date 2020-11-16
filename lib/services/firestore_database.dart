@@ -155,6 +155,17 @@ class FirestoreDatabase {
         builder: (data, documentId) =>
             MergrPenyediaModel.fromMap(data, documentId),
       );
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<MergrPenyediaModel>> mergrQryPenyediaStream(
+          {@required String qPenyedia}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.mergrPenyedias(),
+        queryBuilder: qPenyedia != null
+            ? (query) => query.where('aNamaBadanUsaha', isEqualTo: qPenyedia)
+            : null,
+        builder: (data, documentId) =>
+            MergrPenyediaModel.fromMap(data, documentId),
+      );
 
   // ***** Mergr Peralatan Detail
   //Method to create/update todoModel
@@ -170,5 +181,28 @@ class FirestoreDatabase {
         path: FirestorePath.mergrPeralatanDetails(),
         builder: (data, documentId) =>
             MergrPeralatanDetailModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<MergrPeralatanDetailModel>> mergrPeralatanDetailStream(
+          {@required String qPenyedia}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.mergrPeralatanDetails(),
+        queryBuilder: qPenyedia != null
+            ? (query) => query.where('aNamaBadanUsaha', isEqualTo: qPenyedia)
+            : null,
+        builder: (data, documentId) =>
+            MergrPeralatanDetailModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<PeralatanModel>> queryPeralatanByJenisStream(
+          {@required String query1}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.peralatans(),
+        queryBuilder: query1 != null
+            ? (query) => query.where('xJenis', isEqualTo: query1)
+            : null,
+        builder: (data, documentId) => PeralatanModel.fromMap(data, documentId),
       );
 }
