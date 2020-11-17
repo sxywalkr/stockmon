@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 // import 'package:mergers/app_localizations.dart';
-import 'package:mergers/models/peralatan_model.dart';
-import 'package:mergers/models/penyedia_model.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mergers/models/mergr_penyedia_model.dart';
-import 'package:mergers/models/mergr_peralatan_detail_model.dart';
+import 'package:mergers/models/mergr_personel_detail_model.dart';
+import 'package:mergers/models/personel_model.dart';
+import 'package:mergers/models/penyedia_model.dart';
 import 'package:mergers/services/firestore_database.dart';
 import 'package:provider/provider.dart';
 
-class CreateEditMergrPeralatanScreen extends StatefulWidget {
+class CreateEditMergrPenyediaPersonelScreen extends StatefulWidget {
   @override
-  _CreateEditMergrPeralatanScreenState createState() =>
-      _CreateEditMergrPeralatanScreenState();
+  _CreateEditMergrPenyediaPersonelScreenState createState() =>
+      _CreateEditMergrPenyediaPersonelScreenState();
 }
 
-class _CreateEditMergrPeralatanScreenState
-    extends State<CreateEditMergrPeralatanScreen> {
+class _CreateEditMergrPenyediaPersonelScreenState
+    extends State<CreateEditMergrPenyediaPersonelScreen> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   MergrPenyediaModel _mergrPenyedia;
-  MergrPeralatanDetailModel _mergrPeralatanDetail;
   TextEditingController _aNamaBadanUsahaController;
-  TextEditingController _xJenisController;
+  TextEditingController _xx1TempatController;
+  TextEditingController _xx1WaktuController;
+  TextEditingController _xhNamaController;
 
   @override
   void initState() {
@@ -30,19 +32,20 @@ class _CreateEditMergrPeralatanScreenState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final MergrPeralatanDetailModel _mergrPeralatanDetailModel =
+    final MergrPenyediaModel _mergrPenyediaModel =
         ModalRoute.of(context).settings.arguments;
-    if (_mergrPeralatanDetailModel != null) {
-      _mergrPeralatanDetail = _mergrPeralatanDetailModel;
+    if (_mergrPenyediaModel != null) {
+      _mergrPenyedia = _mergrPenyediaModel;
     }
 
-    _xJenisController = TextEditingController(
-        text:
-            _mergrPeralatanDetail != null ? _mergrPeralatanDetail.xJenis : '');
     _aNamaBadanUsahaController = TextEditingController(
-        text: _mergrPeralatanDetail != null
-            ? _mergrPeralatanDetail.aNamaBadanUsaha
-            : '');
+        text: _mergrPenyedia != null ? _mergrPenyedia.aNamaBadanUsaha : '');
+    _xx1TempatController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1Tempat : '');
+    _xx1WaktuController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1Waktu : '');
+    _xhNamaController =
+        TextEditingController(text: _mergrPenyedia != null ? '' : '');
   }
 
   @override
@@ -56,9 +59,9 @@ class _CreateEditMergrPeralatanScreenState
             Navigator.of(context).pop();
           },
         ),
-        title: Text(_mergrPeralatanDetail != null
-            ? 'Edit Merger Peralatan'
-            : 'Tambah Merger Peralatan'),
+        title: Text(_mergrPenyedia != null
+            ? 'Edit Mergr Penyedia/Personel'
+            : 'Tambah Mergr Penyedia/Personel'),
         actions: <Widget>[
           FlatButton(
               onPressed: () {
@@ -68,13 +71,13 @@ class _CreateEditMergrPeralatanScreenState
                   final firestoreDatabase =
                       Provider.of<FirestoreDatabase>(context, listen: false);
 
-                  firestoreDatabase
-                      .setMergrPeralatanDetail(MergrPeralatanDetailModel(
-                    id: _mergrPeralatanDetail != null
-                        ? _mergrPeralatanDetail.id
+                  firestoreDatabase.setMergrPenyedia(MergrPenyediaModel(
+                    id: _mergrPenyedia != null
+                        ? _mergrPenyedia.id
                         : documentIdFromCurrentDate(),
                     aNamaBadanUsaha: _aNamaBadanUsahaController.text,
-                    xJenis: _xJenisController.text,
+                    xx1Tempat: _xx1TempatController.text,
+                    xx1Waktu: _xx1WaktuController.text,
                   ));
 
                   Navigator.of(context).pop();
@@ -92,7 +95,9 @@ class _CreateEditMergrPeralatanScreenState
   @override
   void dispose() {
     _aNamaBadanUsahaController.dispose();
-    _xJenisController.dispose();
+    _xx1TempatController.dispose();
+    _xx1WaktuController.dispose();
+    _xhNamaController.dispose();
 
     super.dispose();
   }
@@ -107,27 +112,26 @@ class _CreateEditMergrPeralatanScreenState
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('Data Peralatan'),
+              Text(
+                'Data Merger Penyedia Personel',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              Text(
+                'Penyedia',
+                style: Theme.of(context).textTheme.caption,
+              ),
               _cbxPenyedia(context),
-              _cbxPeralatan(context),
-              _btnAddMergrPeralatanDetail(context),
-              _listPeralatanTerpilih(context),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-              //   child: TextFormField(
-              //     controller: _xJenisController,
-              //     style: Theme.of(context).textTheme.bodyText1,
-              //     validator: (value) =>
-              //         value.isEmpty ? 'Jenis tidak boleh kosong' : null,
-              //     decoration: InputDecoration(
-              //       enabledBorder: OutlineInputBorder(
-              //           borderSide: BorderSide(
-              //               color: Theme.of(context).iconTheme.color,
-              //               width: 2)),
-              //       labelText: 'Jenis',
-              //     ),
-              //   ),
-              // ),
+              Text(
+                'Pilih Personel',
+                style: Theme.of(context).textTheme.caption,
+              ),
+              _cbxPersonel(context),
+              _btnAddMergrPersonelDetail(context),
+              Text(
+                'Personel Terpilih',
+                style: Theme.of(context).textTheme.caption,
+              ),
+              _listPersonelTerpilih(context),
             ],
           ),
         ),
@@ -143,7 +147,7 @@ class _CreateEditMergrPeralatanScreenState
       stream: firestoreDatabase.penyediasStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<MergrPenyediaModel> penyedias = snapshot.data;
+          List<PenyediaModel> penyedias = snapshot.data;
           if (penyedias.isNotEmpty) {
             final aa = <String>[''];
             penyedias.forEach((element) {
@@ -171,26 +175,47 @@ class _CreateEditMergrPeralatanScreenState
     );
   }
 
-  Widget _cbxPeralatan(BuildContext context) {
+  Widget _btnAddMergrPersonelDetail(BuildContext context) {
+    return FlatButton(
+      color: Theme.of(context).accentColor,
+      onPressed: () {
+        if (_formKey.currentState.validate()) {
+          FocusScope.of(context).unfocus();
+
+          final firestoreDatabase =
+              Provider.of<FirestoreDatabase>(context, listen: false);
+
+          firestoreDatabase.setMergrPersonel(MergrPersonelModel(
+            id: documentIdFromCurrentDate(),
+            aNamaBadanUsaha: _aNamaBadanUsahaController.text,
+            xhNama: _xhNamaController.text,
+          ));
+        }
+      },
+      child: Text("Tambah Data Personel"),
+    );
+  }
+
+  Widget _cbxPersonel(BuildContext context) {
     final firestoreDatabase =
         Provider.of<FirestoreDatabase>(context, listen: false);
 
     return StreamBuilder(
-      stream: firestoreDatabase.peralatansStream(),
+      stream: firestoreDatabase.personelsStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<PeralatanModel> peralatans = snapshot.data;
-          if (peralatans.isNotEmpty) {
+          List<PersonelModel> personels = snapshot.data;
+          if (personels.isNotEmpty) {
             final aa = <String>[''];
-            peralatans.forEach((element) {
-              aa.add(element.xJenis);
+            personels.forEach((element) {
+              aa.add(element.hNama);
             });
-            // print(aa);
+
             return DropdownButton<String>(
-              value: _xJenisController.text,
+              value: _xhNamaController.text,
               onChanged: (String newValue) {
                 setState(() {
-                  _xJenisController.text = newValue;
+                  _xhNamaController.text = newValue;
                 });
               },
               items: aa.map<DropdownMenuItem<String>>((String value) {
@@ -207,56 +232,58 @@ class _CreateEditMergrPeralatanScreenState
     );
   }
 
-  Widget _btnAddMergrPeralatanDetail(BuildContext context) {
-    return FlatButton(
-      onPressed: () {
-        if (_formKey.currentState.validate()) {
-          FocusScope.of(context).unfocus();
-
-          final firestoreDatabase =
-              Provider.of<FirestoreDatabase>(context, listen: false);
-
-          firestoreDatabase.setMergrPeralatanDetail(MergrPeralatanDetailModel(
-            id: _mergrPeralatanDetail != null
-                ? _mergrPeralatanDetail.id
-                : documentIdFromCurrentDate(),
-            aNamaBadanUsaha: _aNamaBadanUsahaController.text,
-            xJenis: _xJenisController.text,
-          ));
-        }
-      },
-      child: Text("Tambah Data Peratalan"),
-    );
-  }
-
-  Widget _listPeralatanTerpilih(BuildContext context) {
+  Widget _listPersonelTerpilih(BuildContext context) {
     final firestoreDatabase =
         Provider.of<FirestoreDatabase>(context, listen: false);
 
     return StreamBuilder(
-      stream: firestoreDatabase.mergrPeralatanDetailsStream(),
+      stream: firestoreDatabase.mergrPersonelByQ1Stream(
+          query1: _aNamaBadanUsahaController.text),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<MergrPeralatanDetailModel> mergrPeralatanDetail = snapshot.data;
-          if (mergrPeralatanDetail.isNotEmpty) {
+          List<MergrPersonelModel> mergrPersonel = snapshot.data;
+          if (mergrPersonel.isNotEmpty) {
             // data start here
             return Container(
-              height: 100,
+              color: Colors.black12,
+              height: 270,
               child: ListView.separated(
-                itemCount: mergrPeralatanDetail.length,
+                itemCount: mergrPersonel.length,
                 itemBuilder: (context, index) {
                   return Dismissible(
                     background: Container(
                       color: Colors.red,
                       child: Center(
                           child: Text(
-                        'dismissable',
+                        'Geser untuk hapus',
                         style: TextStyle(color: Theme.of(context).canvasColor),
                       )),
                     ),
-                    key: Key(mergrPeralatanDetail[index].id),
+                    key: Key(mergrPersonel[index].id),
+                    onDismissed: (direction) {
+                      firestoreDatabase
+                          .deleteMergrPersonel(mergrPersonel[index]);
+
+                      _scaffoldKey.currentState.showSnackBar(SnackBar(
+                        backgroundColor: Theme.of(context).appBarTheme.color,
+                        content: Text(
+                          'Hapus ' + mergrPersonel[index].xhNama,
+                          style:
+                              TextStyle(color: Theme.of(context).canvasColor),
+                        ),
+                        duration: Duration(seconds: 3),
+                        action: SnackBarAction(
+                          label: 'Batal',
+                          textColor: Theme.of(context).canvasColor,
+                          onPressed: () {
+                            firestoreDatabase
+                                .setMergrPersonel(mergrPersonel[index]);
+                          },
+                        ),
+                      ));
+                    },
                     child: ListTile(
-                      title: Text(mergrPeralatanDetail[index].xJenis),
+                      title: Text(mergrPersonel[index].xhNama),
                       onTap: () {},
                     ),
                   );

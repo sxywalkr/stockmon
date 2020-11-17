@@ -11,6 +11,7 @@ import 'package:mergers/models/pengalaman_model.dart';
 import 'package:mergers/models/peralatan_model.dart';
 import 'package:mergers/models/mergr_penyedia_model.dart';
 import 'package:mergers/models/mergr_peralatan_detail_model.dart';
+import 'package:mergers/models/mergr_personel_detail_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -175,6 +176,14 @@ class FirestoreDatabase {
         path: FirestorePath.mergrPeralatanDetail(mergrPeralatanDetail.id),
         data: mergrPeralatanDetail.toMap(),
       );
+
+  //Method to delete todoModel entry
+  Future<void> deleteMergrPeralatan(
+      MergrPeralatanDetailModel mergrPeralatanDetail) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.mergrPeralatanDetail(mergrPeralatanDetail.id));
+  }
+
   //Method to retrieve all todos item from the same user based on uid
   Stream<List<MergrPeralatanDetailModel>> mergrPeralatanDetailsStream() =>
       _firestoreService.collectionStream(
@@ -204,5 +213,31 @@ class FirestoreDatabase {
             ? (query) => query.where('xJenis', isEqualTo: query1)
             : null,
         builder: (data, documentId) => PeralatanModel.fromMap(data, documentId),
+      );
+
+// ***** Mergr Personel
+  //Method to create/update todoModel
+  Future<void> setMergrPersonel(MergrPersonelModel mergrPersonel) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.mergrPersonel(mergrPersonel.id),
+        data: mergrPersonel.toMap(),
+      );
+
+  //Method to delete todoModel entry
+  Future<void> deleteMergrPersonel(MergrPersonelModel mergrPersonel) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.mergrPersonel(mergrPersonel.id));
+  }
+
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<MergrPersonelModel>> mergrPersonelByQ1Stream(
+          {@required String query1}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.mergrPersonels(),
+        queryBuilder: query1 != null
+            ? (query) => query.where('aNamaBadanUsaha', isEqualTo: query1)
+            : null,
+        builder: (data, documentId) =>
+            MergrPersonelModel.fromMap(data, documentId),
       );
 }

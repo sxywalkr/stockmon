@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:mergers/app_localizations.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mergers/models/mergr_penyedia_model.dart';
 import 'package:mergers/models/mergr_peralatan_detail_model.dart';
 import 'package:mergers/models/peralatan_model.dart';
@@ -112,17 +112,24 @@ class _CreateEditMergrPenyediaPeralatanScreenState
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('Data Merger Penyedia Peralatan'),
+              Text(
+                'Data Merger Penyedia Peralatan',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
               Text(
                 'Penyedia',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.caption,
               ),
               _cbxPenyedia(context),
+              Text(
+                'Pilih Peralatan',
+                style: Theme.of(context).textTheme.caption,
+              ),
               _cbxPeralatan(context),
               _btnAddMergrPeralatanDetail(context),
               Text(
                 'Peralatan Terpilih',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.caption,
               ),
               _listPeralatanTerpilih(context),
             ],
@@ -170,6 +177,7 @@ class _CreateEditMergrPenyediaPeralatanScreenState
 
   Widget _btnAddMergrPeralatanDetail(BuildContext context) {
     return FlatButton(
+      color: Theme.of(context).accentColor,
       onPressed: () {
         if (_formKey.currentState.validate()) {
           FocusScope.of(context).unfocus();
@@ -237,7 +245,8 @@ class _CreateEditMergrPenyediaPeralatanScreenState
           if (mergrPeralatanDetail.isNotEmpty) {
             // data start here
             return Container(
-              height: 100,
+              color: Colors.black12,
+              height: 270,
               child: ListView.separated(
                 itemCount: mergrPeralatanDetail.length,
                 itemBuilder: (context, index) {
@@ -246,11 +255,33 @@ class _CreateEditMergrPenyediaPeralatanScreenState
                       color: Colors.red,
                       child: Center(
                           child: Text(
-                        'dismissable',
+                        'Geser untuk hapus',
                         style: TextStyle(color: Theme.of(context).canvasColor),
                       )),
                     ),
                     key: Key(mergrPeralatanDetail[index].id),
+                    onDismissed: (direction) {
+                      firestoreDatabase
+                          .deleteMergrPeralatan(mergrPeralatanDetail[index]);
+
+                      _scaffoldKey.currentState.showSnackBar(SnackBar(
+                        backgroundColor: Theme.of(context).appBarTheme.color,
+                        content: Text(
+                          'Hapus ' + mergrPeralatanDetail[index].xJenis,
+                          style:
+                              TextStyle(color: Theme.of(context).canvasColor),
+                        ),
+                        duration: Duration(seconds: 3),
+                        action: SnackBarAction(
+                          label: 'Batal',
+                          textColor: Theme.of(context).canvasColor,
+                          onPressed: () {
+                            firestoreDatabase.setMergrPeralatanDetail(
+                                mergrPeralatanDetail[index]);
+                          },
+                        ),
+                      ));
+                    },
                     child: ListTile(
                       title: Text(mergrPeralatanDetail[index].xJenis),
                       onTap: () {},

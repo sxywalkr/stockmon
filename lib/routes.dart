@@ -19,6 +19,8 @@ import 'package:mergers/ui/mergr_penyedia/mergr_penyedia_screen.dart';
 import 'package:mergers/ui/mergr_penyedia/create_edit_mergr_penyedia_screen.dart';
 import 'package:mergers/ui/mergr_peralatan/mergr_peralatan_screen.dart';
 import 'package:mergers/ui/mergr_peralatan/create_edit_mergr_penyedia_peralatan_screen.dart';
+import 'package:mergers/ui/mergr_personel/mergr_personel_screen.dart';
+import 'package:mergers/ui/mergr_personel/create_edit_mergr_penyedia_personel_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -45,6 +47,9 @@ class Routes {
   static const String mergr_peralatan = '/mergr_peralatan';
   static const String create_edit_mergr_penyedia_peralatan =
       '/create_edit_mergr_penyedia_peralatan';
+  static const String mergr_personel = '/mergr_personel';
+  static const String create_edit_mergr_penyedia_personel =
+      '/create_edit_mergr_penyedia_personel';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -70,5 +75,8 @@ class Routes {
     mergr_peralatan: (BuildContext context) => MergrPeralatanScreen(),
     create_edit_mergr_penyedia_peralatan: (BuildContext context) =>
         CreateEditMergrPenyediaPeralatanScreen(),
+    mergr_personel: (BuildContext context) => MergrPersonelScreen(),
+    create_edit_mergr_penyedia_personel: (BuildContext context) =>
+        CreateEditMergrPenyediaPersonelScreen(),
   };
 }

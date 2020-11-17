@@ -54,6 +54,15 @@ class AppDrawer extends StatelessWidget {
             Divider(),
             ListTile(
               leading: Icon(Icons.support),
+              title: Text('Merger Data Personel'),
+              onTap: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(Routes.mergr_personel);
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.support),
               title: Text('Data Master Penyedia'),
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(Routes.penyedia);
