@@ -20,8 +20,121 @@ import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class MergrPersonelScreen extends StatelessWidget {
+enum PrintOpt {
+  PrintPersonel,
+  PrintReferensi,
+}
+
+class MergrPersonelScreen extends StatefulWidget {
+  @override
+  _MergrPersonelScreenState createState() => _MergrPersonelScreenState();
+}
+
+class _MergrPersonelScreenState extends State<MergrPersonelScreen> {
+  var printOption = PrintOpt.PrintPersonel;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: AppDrawer(),
+      appBar: AppBar(
+        title: Text('Merger Doc Personel'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).pushNamed(
+            Routes.create_edit_mergr_penyedia_personel,
+          );
+        },
+      ),
+      body: WillPopScope(
+          onWillPop: () async => false, child: _buildBodySection(context)),
+    );
+  }
+
+  Widget _buildBodySection(BuildContext context) {
+    final firestoreDatabase =
+        Provider.of<FirestoreDatabase>(context, listen: false);
+
+    return StreamBuilder(
+        stream: firestoreDatabase.mergrPenyediasStream(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<MergrPenyediaModel> mergrPenyedia = snapshot.data;
+            if (mergrPenyedia.isNotEmpty) {
+              return ListView.separated(
+                itemCount: mergrPenyedia.length,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    background: Container(
+                      color: Colors.red,
+                      child: Center(
+                          child: Text(
+                        AppLocalizations.of(context)
+                            .translate("todosDismissibleMsgTxt"),
+                        style: TextStyle(color: Theme.of(context).canvasColor),
+                      )),
+                    ),
+                    key: Key(mergrPenyedia[index].id),
+                    child: ListTile(
+                      title: Text(mergrPenyedia[index].aNamaBadanUsaha),
+                      trailing: _printOpt(
+                          context, mergrPenyedia[index].aNamaBadanUsaha),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                            Routes.create_edit_mergr_penyedia_personel,
+                            arguments: mergrPenyedia[index]);
+                      },
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(height: 0.5);
+                },
+              );
+            } else {
+              return EmptyContentWidget(
+                title: 'Tidak ada data merger personel',
+                message: 'Tap + untuk menambah merger personel',
+              );
+            }
+          } else if (snapshot.hasError) {
+            return EmptyContentWidget(
+              title: AppLocalizations.of(context)
+                  .translate("peralatanErrorTopMsgTxt"),
+              message: AppLocalizations.of(context)
+                  .translate("peralatanErrorBottomMsgTxt"),
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        });
+  }
+
+  Widget _printOpt(BuildContext context, String a) {
+    return PopupMenuButton(
+      onSelected: (PrintOpt selectedValue) {
+        if (selectedValue == PrintOpt.PrintPersonel) {
+          genDocxPersonel(context, a);
+        } else if (selectedValue == PrintOpt.PrintReferensi) {
+          genDocxReferensi(context, a);
+        }
+      },
+      itemBuilder: (_) => [
+        PopupMenuItem(
+          child: Text('Doc Personel'),
+          value: PrintOpt.PrintPersonel,
+        ),
+        PopupMenuItem(
+          child: Text('Doc Referensi'),
+          value: PrintOpt.PrintReferensi,
+        ),
+      ],
+      icon: Icon(Icons.more_vert),
+    );
+  }
 
   void genDocxPersonel(BuildContext context, String q1) async {
     // **** data1
@@ -130,86 +243,126 @@ class MergrPersonelScreen extends StatelessWidget {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        title: Text('Merger Doc Personel'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-            Routes.create_edit_mergr_penyedia_personel,
-          );
-        },
-      ),
-      body: WillPopScope(
-          onWillPop: () async => false, child: _buildBodySection(context)),
-    );
-  }
+  void genDocxReferensi(BuildContext context, String q1) async {
+    // **** data1
+    Map<String, dynamic> data1 = {};
+    final qSnap1 = await Firestore.instance
+        .collection('mergrPenyedia')
+        .where('aNamaBadanUsaha', isEqualTo: q1)
+        .getDocuments();
+    for (DocumentSnapshot ds in qSnap1.documents) {
+      data1 = ds.data;
+    }
+    print(data1);
 
-  Widget _buildBodySection(BuildContext context) {
-    final firestoreDatabase =
-        Provider.of<FirestoreDatabase>(context, listen: false);
+    // **** data2
+    Map<String, dynamic> data2 = {};
+    final qSnap2 = await Firestore.instance
+        .collection('masterPenyedia')
+        .where('aNamaBadanUsaha', isEqualTo: q1)
+        .getDocuments();
+    for (DocumentSnapshot ds in qSnap2.documents) {
+      data2 = ds.data;
+    }
+    print(data2);
 
-    return StreamBuilder(
-        stream: firestoreDatabase.mergrPenyediasStream(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            List<MergrPenyediaModel> mergrPenyedia = snapshot.data;
-            if (mergrPenyedia.isNotEmpty) {
-              return ListView.separated(
-                itemCount: mergrPenyedia.length,
-                itemBuilder: (context, index) {
-                  return Dismissible(
-                    background: Container(
-                      color: Colors.red,
-                      child: Center(
-                          child: Text(
-                        AppLocalizations.of(context)
-                            .translate("todosDismissibleMsgTxt"),
-                        style: TextStyle(color: Theme.of(context).canvasColor),
-                      )),
-                    ),
-                    key: Key(mergrPenyedia[index].id),
-                    child: ListTile(
-                      title: Text(mergrPenyedia[index].aNamaBadanUsaha),
-                      trailing: IconButton(
-                          icon: Icon(Icons.print),
-                          onPressed: () {
-                            genDocxPersonel(
-                                context, mergrPenyedia[index].aNamaBadanUsaha);
-                          }),
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                            Routes.create_edit_mergr_penyedia_personel,
-                            arguments: mergrPenyedia[index]);
-                      },
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Divider(height: 0.5);
-                },
+    // **** data3
+    List<Map<String, dynamic>> data3 = [];
+    final qSnap3 = await Firestore.instance
+        .collection('mergrPersonel')
+        .where('aNamaBadanUsaha', isEqualTo: q1)
+        .getDocuments();
+    for (DocumentSnapshot ds in qSnap3.documents) {
+      data3.add(ds.data);
+      print(data3);
+    }
+    // print('data3.length >> ${data3.length}');
+    // print(data3);
+
+    // start mergr doc
+    FilePickerResult result = await FilePicker.platform.pickFiles();
+
+    if (result == null) {
+      print('no file selected');
+    }
+    File file = File(result.files.single.path);
+    // print(file.absolute);
+    final docx = await DocxTemplate.fromBytes(await file.readAsBytes());
+    try {
+      Content c = Content();
+
+      // List<PlainContent> aRow = [];
+      final aRow = <PlainContent>[];
+      List<Map<String, dynamic>> data4 = [];
+      for (int i = 0; i < data3.length; i++) {
+        final qSnap4 = await Firestore.instance
+            .collection('masterReferensi')
+            .where('xxx1Nama', isEqualTo: data3[i]['xhNama'])
+            .getDocuments();
+        for (DocumentSnapshot ds in qSnap4.documents) {
+          data4.add(ds.data);
+        }
+      }
+
+      for (int i = 0; i < data3.length; i++) {
+        for (int ii = 0; ii < data4.length; ii++) {
+          // print(data1['aNamaBadanUsaha']);
+          // print(data2['cNama']);
+          // print(data2['cJabatan']);
+          // print(data2['aAlamatPusat']);
+          aRow.add(PlainContent('xxx1Repeat')
+                ..add(
+                    TextContent("xxx1NomorSurat", data4[ii]['xxx1NomorSurat']))
+                ..add(TextContent("aNamaBadanUsaha", data1['aNamaBadanUsaha']))
+                ..add(TextContent("cNama", data2['cNama']))
+                ..add(TextContent("cJabatan", data2['cJabatan']))
+                ..add(TextContent("cAlamat", data2['aAlamatPusat']))
+                ..add(TextContent("xxx1Nama", data4[ii]['xxx1Nama']))
+                ..add(TextContent("xxx1Alamat", data4[ii]['xxx1Alamat']))
+                ..add(TextContent("xxx1Jabatan", data4[ii]['xxx1Jabatan']))
+                ..add(TextContent(
+                    "xxx1NamaKontrak", data4[ii]['xxx1NamaKontrak']))
+                ..add(TextContent(
+                    "xxx1NomorKontrak", data4[ii]['xxx1NomorKontrak']))
+                ..add(TextContent("xxx1Instansi", data4[ii]['xxx1Instansi']))
+                ..add(TextContent("xxx1Periode", data4[ii]['xxx1Periode']))
+                ..add(TextContent("aNamaBadanUsaha", data1['aNamaBadanUsaha']))
+                ..add(TextContent("cNama", data2['cNama']))
+                ..add(TextContent("cJabatan", data2['cJabatan']))
+                ..add(TextContent("xxx1Tempat", data4[ii]['xxx1Tempat']))
+                ..add(TextContent("xxx1Waktu", data4[ii]['xxx1Waktu']))
+                ..add(TextContent("xxx1Instansi", data4[ii]['xxx1Instansi']))
+                ..add(TextContent(
+                    "xxx1NamaPejabat", data4[ii]['xxx1NamaPejabat']))
+                ..add(
+                    TextContent("xxx1NipPejabat", data4[ii]['xxx1NipPejabat']))
+              // ..add(TextContent("xxx1Nama", data3[i]['xhNama'])
               );
-            } else {
-              return EmptyContentWidget(
-                title: 'Tidak ada data merger personel',
-                message: 'Tap + untuk menambah merger personel',
-              );
-            }
-          } else if (snapshot.hasError) {
-            return EmptyContentWidget(
-              title: AppLocalizations.of(context)
-                  .translate("peralatanErrorTopMsgTxt"),
-              message: AppLocalizations.of(context)
-                  .translate("peralatanErrorBottomMsgTxt"),
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        });
+        }
+      }
+
+      c..add(ListContent('ListRepeat', aRow));
+
+      final d = await docx.generate(c);
+
+      final Directory extDir = await getExternalStorageDirectory();
+      final String dirPath = extDir.path.toString().substring(0, 20);
+      await Directory(dirPath).create(recursive: true);
+      final String filePath = '$dirPath';
+      final of = new File('$filePath' +
+          'Pictures/generated Mergr Referensi ${data1['aNamaBadanUsaha']}.docx');
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+      await of.writeAsBytes(d);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content:
+            Text('Mergr Referensi ${data1['aNamaBadanUsaha']} selesai dibuat'),
+        duration: Duration(seconds: 3),
+      ));
+    } catch (err) {
+      print(err);
+    }
   }
 }
