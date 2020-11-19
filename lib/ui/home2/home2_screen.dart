@@ -159,9 +159,31 @@ class Home2Screen extends StatelessWidget {
           );
         },
       ),
-      body: Text('home2'),
+      body: _home2(context),
       // WillPopScope(
       //     onWillPop: () async => false, child: _buildBodySection(context)),
+    );
+  }
+
+  Widget _home2(BuildContext context) {
+    return GridView.builder(
+      // padding: const EdgeInsets.all(10.0),
+      itemCount: 2,
+      itemBuilder: (context, index) {
+        return Card(
+          child: new GridTile(
+            footer: new Text('111'),
+            child:
+                new Text('111'), //just for testing, will fill with image later
+          ),
+        );
+      },
+
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5),
     );
   }
 

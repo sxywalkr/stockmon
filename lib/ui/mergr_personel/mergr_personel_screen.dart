@@ -23,112 +23,112 @@ import 'package:permission_handler/permission_handler.dart';
 class MergrPersonelScreen extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // void genDocxPersonel(BuildContext context, String q1) async {
-  //   // **** data1
-  //   Map<String, dynamic> data1 = {};
-  //   final qSnap1 = await Firestore.instance
-  //       .collection('mergrPenyedia')
-  //       .where('aNamaBadanUsaha', isEqualTo: q1)
-  //       .getDocuments();
-  //   for (DocumentSnapshot ds in qSnap1.documents) {
-  //     data1 = ds.data;
-  //   }
-  //   // print(data1['xx1Tempat']);
+  void genDocxPersonel(BuildContext context, String q1) async {
+    // **** data1
+    Map<String, dynamic> data1 = {};
+    final qSnap1 = await Firestore.instance
+        .collection('mergrPenyedia')
+        .where('aNamaBadanUsaha', isEqualTo: q1)
+        .getDocuments();
+    for (DocumentSnapshot ds in qSnap1.documents) {
+      data1 = ds.data;
+    }
+    // print(data1['xx1Tempat']);
 
-  //   // **** data2
-  //   Map<String, dynamic> data2 = {};
-  //   final qSnap2 = await Firestore.instance
-  //       .collection('masterPenyedia')
-  //       .where('aNamaBadanUsaha', isEqualTo: q1)
-  //       .getDocuments();
-  //   for (DocumentSnapshot ds in qSnap2.documents) {
-  //     data2 = ds.data;
-  //   }
-  //   // print(data2['cNama']);
+    // **** data2
+    Map<String, dynamic> data2 = {};
+    final qSnap2 = await Firestore.instance
+        .collection('masterPenyedia')
+        .where('aNamaBadanUsaha', isEqualTo: q1)
+        .getDocuments();
+    for (DocumentSnapshot ds in qSnap2.documents) {
+      data2 = ds.data;
+    }
+    // print(data2['cNama']);
 
-  //   // **** data3
-  //   List<Map<String, dynamic>> data3 = [];
-  //   final qSnap3 = await Firestore.instance
-  //       .collection('mergrPeralatanDetail')
-  //       .where('aNamaBadanUsaha', isEqualTo: q1)
-  //       .getDocuments();
-  //   for (DocumentSnapshot ds in qSnap3.documents) {
-  //     data3.add(ds.data);
-  //     print(data3);
-  //   }
-  //   // print('data3.length >> ${data3.length}');
-  //   // print(data3);
+    // **** data3
+    List<Map<String, dynamic>> data3 = [];
+    final qSnap3 = await Firestore.instance
+        .collection('mergrPersonel')
+        .where('aNamaBadanUsaha', isEqualTo: q1)
+        .getDocuments();
+    for (DocumentSnapshot ds in qSnap3.documents) {
+      data3.add(ds.data);
+      print(data3);
+    }
+    // print('data3.length >> ${data3.length}');
+    // print(data3);
 
-  //   // start mergr doc
-  //   FilePickerResult result = await FilePicker.platform.pickFiles();
+    // start mergr doc
+    FilePickerResult result = await FilePicker.platform.pickFiles();
 
-  //   if (result == null) {
-  //     print('no file selected');
-  //   }
-  //   File file = File(result.files.single.path);
-  //   // print(file.absolute);
-  //   final docx = await DocxTemplate.fromBytes(await file.readAsBytes());
-  //   try {
-  //     Content c = Content();
+    if (result == null) {
+      print('no file selected');
+    }
+    File file = File(result.files.single.path);
+    // print(file.absolute);
+    final docx = await DocxTemplate.fromBytes(await file.readAsBytes());
+    try {
+      Content c = Content();
 
-  //     List<RowContent> aRow = [];
-  //     for (int i = 0; i < data3.length; i++) {
-  //       // **** data
-  //       List<Map<String, dynamic>> data4 = [];
-  //       final qSnap4 = await Firestore.instance
-  //           .collection('masterPeralatan')
-  //           .where('xJenis', isEqualTo: data3[i]['xJenis'])
-  //           .getDocuments();
-  //       for (DocumentSnapshot ds in qSnap4.documents) {
-  //         data4.add(ds.data);
-  //         // print(data4);
-  //       }
-  //       aRow.add(
-  //         RowContent()
-  //           ..add(TextContent("xxNo", i + 1))
-  //           ..add(TextContent("xxJenis", data3[i]['xJenis']))
-  //           ..add(TextContent("xxMerk", data4[0]['xMerk']))
-  //           ..add(TextContent("xxLokasi", data4[0]['xLokasi']))
-  //           ..add(TextContent("xxKapasitas", data4[0]['xKapasitas']))
-  //           ..add(TextContent("xxJumlah", data4[0]['xJumlah']))
-  //           ..add(TextContent("xxStatus", data4[0]['xStatus'])),
-  //       );
-  //     }
+      List<RowContent> aRow = [];
+      for (int i = 0; i < data3.length; i++) {
+        // **** data
+        List<Map<String, dynamic>> data4 = [];
+        final qSnap4 = await Firestore.instance
+            .collection('masterPersonel')
+            .where('hNama', isEqualTo: data3[i]['xhNama'])
+            .getDocuments();
+        for (DocumentSnapshot ds in qSnap4.documents) {
+          data4.add(ds.data);
+          // print(data4);
+        }
+        aRow.add(
+          RowContent()
+            ..add(TextContent("xxNo", i + 1))
+            ..add(TextContent("xxNama", data3[i]['xhNama']))
+            ..add(TextContent("xxPendidikan", data4[0]['hPendidikan']))
+            ..add(TextContent("xxJabatan", data4[0]['hJabatan']))
+            ..add(TextContent("xxPengalaman", data4[0]['hPengalaman']))
+            ..add(TextContent("xxSertifikat", data4[0]['hSertifikat']))
+            ..add(TextContent("xxBukti", data4[0]['hSetor'])),
+        );
+      }
 
-  //     c
-  //       //** doc peralatan */
-  //       //** part tabel */
-  //       ..add(TableContent("table", aRow));
-  //     //** part ttd */
-  //     c
-  //       ..add(TextContent('xxTempat', data1['xx1Tempat']))
-  //       ..add(TextContent('xxWaktu', data1['xx1Waktu']))
-  //       ..add(TextContent('aNamaBadanUsaha', data1['aNamaBadanUsaha']))
-  //       ..add(TextContent('cNama', data2['cNama']))
-  //       ..add(TextContent('cJabatan', data2['cJabatan']));
+      c
+        //** doc peralatan */
+        //** part tabel */
+        ..add(TableContent("table", aRow));
+      //** part ttd */
+      c
+        ..add(TextContent('xxTempat', data1['xx1Tempat']))
+        ..add(TextContent('xxWaktu', data1['xx1Waktu']))
+        ..add(TextContent('aNamaBadanUsaha', data1['aNamaBadanUsaha']))
+        ..add(TextContent('cNama', data2['cNama']))
+        ..add(TextContent('cJabatan', data2['cJabatan']));
 
-  //     final d = await docx.generate(c);
+      final d = await docx.generate(c);
 
-  //     final Directory extDir = await getExternalStorageDirectory();
-  //     final String dirPath = extDir.path.toString().substring(0, 20);
-  //     await Directory(dirPath).create(recursive: true);
-  //     final String filePath = '$dirPath';
-  //     final of = new File('$filePath' +
-  //         'Pictures/generated Mergr Peralatan ${data1['aNamaBadanUsaha']}.docx');
-  //     var status = await Permission.storage.status;
-  //     if (!status.isGranted) {
-  //       await Permission.storage.request();
-  //     }
-  //     await of.writeAsBytes(d);
-  //     _scaffoldKey.currentState.showSnackBar(SnackBar(
-  //       content:
-  //           Text('Mergr Peralatan ${data1['aNamaBadanUsaha']} selesai dibuat'),
-  //       duration: Duration(seconds: 3),
-  //     ));
-  //   } catch (err) {
-  //     print(err);
-  //   }
-  // }
+      final Directory extDir = await getExternalStorageDirectory();
+      final String dirPath = extDir.path.toString().substring(0, 20);
+      await Directory(dirPath).create(recursive: true);
+      final String filePath = '$dirPath';
+      final of = new File('$filePath' +
+          'Pictures/generated Mergr Personel ${data1['aNamaBadanUsaha']}.docx');
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+      await of.writeAsBytes(d);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content:
+            Text('Mergr Personel ${data1['aNamaBadanUsaha']} selesai dibuat'),
+        duration: Duration(seconds: 3),
+      ));
+    } catch (err) {
+      print(err);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,8 +180,8 @@ class MergrPersonelScreen extends StatelessWidget {
                       trailing: IconButton(
                           icon: Icon(Icons.print),
                           onPressed: () {
-                            // genDocxPeralatan(
-                            //     context, mergrPenyedia[index].aNamaBadanUsaha);
+                            genDocxPersonel(
+                                context, mergrPenyedia[index].aNamaBadanUsaha);
                           }),
                       onTap: () {
                         Navigator.of(context).pushNamed(

@@ -12,6 +12,7 @@ import 'package:mergers/models/peralatan_model.dart';
 import 'package:mergers/models/mergr_penyedia_model.dart';
 import 'package:mergers/models/mergr_peralatan_detail_model.dart';
 import 'package:mergers/models/mergr_personel_detail_model.dart';
+import 'package:mergers/models/referensi_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -239,5 +240,36 @@ class FirestoreDatabase {
             : null,
         builder: (data, documentId) =>
             MergrPersonelModel.fromMap(data, documentId),
+      );
+
+  // *****  Referensi
+  //Method to create/update todoModel
+  Future<void> setReferensi(ReferensiModel referensi) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.referensi(referensi.id),
+        data: referensi.toMap(),
+      );
+
+  //Method to delete todoModel entry
+  Future<void> deleteReferensi(ReferensiModel referensi) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.referensi(referensi.id));
+  }
+
+  //Method to retrieve all todos item from the same user based on uid
+  Stream<List<ReferensiModel>> referensisStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.referensis(),
+        builder: (data, documentId) => ReferensiModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<ReferensiModel>> referensiByQ1Stream({@required String query1}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.referensis(),
+        queryBuilder: query1 != null
+            ? (query) => query.where('xxx1Nama', isEqualTo: query1)
+            : null,
+        builder: (data, documentId) => ReferensiModel.fromMap(data, documentId),
       );
 }

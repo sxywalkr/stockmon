@@ -79,6 +79,14 @@ class AppDrawer extends StatelessWidget {
             Divider(),
             ListTile(
               leading: Icon(Icons.support),
+              title: Text('Data Master Referensi'),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(Routes.referensi);
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.support),
               title: Text('Data Master Pengalaman Kerja'),
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(Routes.pengalaman);

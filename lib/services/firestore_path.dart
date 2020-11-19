@@ -35,4 +35,8 @@ class FirestorePath {
   static String mergrPersonel(String mergrPersonelId) =>
       'mergrPersonel/$mergrPersonelId';
   static String mergrPersonels() => 'mergrPersonel';
+
+  // Referensi
+  static String referensi(String referensiId) => 'referensi/$referensiId';
+  static String referensis() => 'referensi';
 }

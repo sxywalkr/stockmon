@@ -21,6 +21,8 @@ import 'package:mergers/ui/mergr_peralatan/mergr_peralatan_screen.dart';
 import 'package:mergers/ui/mergr_peralatan/create_edit_mergr_penyedia_peralatan_screen.dart';
 import 'package:mergers/ui/mergr_personel/mergr_personel_screen.dart';
 import 'package:mergers/ui/mergr_personel/create_edit_mergr_penyedia_personel_screen.dart';
+import 'package:mergers/ui/referensi/referensi_screen.dart';
+import 'package:mergers/ui/referensi/create_edit_referensi_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -50,6 +52,8 @@ class Routes {
   static const String mergr_personel = '/mergr_personel';
   static const String create_edit_mergr_penyedia_personel =
       '/create_edit_mergr_penyedia_personel';
+  static const String referensi = '/referensi';
+  static const String create_edit_referensi = '/create_edit_referensi';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -78,5 +82,8 @@ class Routes {
     mergr_personel: (BuildContext context) => MergrPersonelScreen(),
     create_edit_mergr_penyedia_personel: (BuildContext context) =>
         CreateEditMergrPenyediaPersonelScreen(),
+    referensi: (BuildContext context) => ReferensiScreen(),
+    create_edit_referensi: (BuildContext context) =>
+        CreateEditReferensiScreen(),
   };
 }
