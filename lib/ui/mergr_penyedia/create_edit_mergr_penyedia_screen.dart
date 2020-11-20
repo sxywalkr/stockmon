@@ -19,6 +19,14 @@ class _CreateEditMergrPenyediaScreenState
   TextEditingController _aNamaBadanUsahaController;
   TextEditingController _xx1TempatController;
   TextEditingController _xx1WaktuController;
+  TextEditingController _xx1NilaiPenawaranController;
+  TextEditingController _xx1NomorSuratPenawaranController;
+  TextEditingController _xx1InstansiPemberiTugasController;
+  TextEditingController _xx1NamaPaketController;
+  TextEditingController _xx1NomorUndanganController;
+  TextEditingController _xx1TanggalUndanganController;
+  TextEditingController _xx1JangkaWaktuController;
+  TextEditingController _xx1MasaBerlakuController;
 
   @override
   void initState() {
@@ -40,6 +48,26 @@ class _CreateEditMergrPenyediaScreenState
         text: _mergrPenyedia != null ? _mergrPenyedia.xx1Tempat : '');
     _xx1WaktuController = TextEditingController(
         text: _mergrPenyedia != null ? _mergrPenyedia.xx1Waktu : '');
+    _xx1NilaiPenawaranController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1NilaiPenawaran : '');
+    _xx1NomorSuratPenawaranController = TextEditingController(
+        text: _mergrPenyedia != null
+            ? _mergrPenyedia.xx1NomorSuratPenawaran
+            : '');
+    _xx1InstansiPemberiTugasController = TextEditingController(
+        text: _mergrPenyedia != null
+            ? _mergrPenyedia.xx1InstansiPemberiTugas
+            : '');
+    _xx1NamaPaketController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1NamaPaket : '');
+    _xx1NomorUndanganController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1NomorUndangan : '');
+    _xx1TanggalUndanganController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1TanggalUndangan : '');
+    _xx1JangkaWaktuController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1JangkaWaktu : '');
+    _xx1MasaBerlakuController = TextEditingController(
+        text: _mergrPenyedia != null ? _mergrPenyedia.xx1MasaBerlaku : '');
   }
 
   @override
@@ -72,6 +100,16 @@ class _CreateEditMergrPenyediaScreenState
                     aNamaBadanUsaha: _aNamaBadanUsahaController.text,
                     xx1Tempat: _xx1TempatController.text,
                     xx1Waktu: _xx1WaktuController.text,
+                    xx1NilaiPenawaran: _xx1NilaiPenawaranController.text,
+                    xx1NomorSuratPenawaran:
+                        _xx1NomorSuratPenawaranController.text,
+                    xx1InstansiPemberiTugas:
+                        _xx1InstansiPemberiTugasController.text,
+                    xx1NamaPaket: _xx1NamaPaketController.text,
+                    xx1NomorUndangan: _xx1NomorUndanganController.text,
+                    xx1TanggalUndangan: _xx1TanggalUndanganController.text,
+                    xx1JangkaWaktu: _xx1JangkaWaktuController.text,
+                    xx1MasaBerlaku: _xx1MasaBerlakuController.text,
                   ));
 
                   Navigator.of(context).pop();
@@ -91,6 +129,14 @@ class _CreateEditMergrPenyediaScreenState
     _aNamaBadanUsahaController.dispose();
     _xx1TempatController.dispose();
     _xx1WaktuController.dispose();
+    _xx1NilaiPenawaranController.dispose();
+    _xx1NomorSuratPenawaranController.dispose();
+    _xx1InstansiPemberiTugasController.dispose();
+    _xx1NamaPaketController.dispose();
+    _xx1NomorUndanganController.dispose();
+    _xx1TanggalUndanganController.dispose();
+    _xx1JangkaWaktuController.dispose();
+    _xx1MasaBerlakuController.dispose();
 
     super.dispose();
   }
@@ -136,6 +182,134 @@ class _CreateEditMergrPenyediaScreenState
                             color: Theme.of(context).iconTheme.color,
                             width: 2)),
                     labelText: 'Waktu',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1NilaiPenawaranController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Nilai Penawaran',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1NomorSuratPenawaranController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Nomor Surat Penawaran',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1InstansiPemberiTugasController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Instansi Pemberi Tugas',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1NamaPaketController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Nama Paket',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1NomorUndanganController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Nomor Undangan',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1TanggalUndanganController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Tanggal Undangan',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1JangkaWaktuController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Jangka Waktu',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextFormField(
+                  controller: _xx1MasaBerlakuController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Masa Berlaku',
                   ),
                 ),
               ),
