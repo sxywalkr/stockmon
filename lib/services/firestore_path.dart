@@ -39,4 +39,8 @@ class FirestorePath {
   // Referensi
   static String referensi(String referensiId) => 'masterReferensi/$referensiId';
   static String referensis() => 'masterReferensi';
+
+  // Pekerjaan
+  static String pekerjaan(String pekerjaanId) => 'masterPekerjaan/$pekerjaanId';
+  static String pekerjaans() => 'masterPekerjaan';
 }

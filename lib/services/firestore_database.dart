@@ -13,6 +13,7 @@ import 'package:mergers/models/mergr_penyedia_model.dart';
 import 'package:mergers/models/mergr_peralatan_detail_model.dart';
 import 'package:mergers/models/mergr_personel_detail_model.dart';
 import 'package:mergers/models/referensi_model.dart';
+import 'package:mergers/models/pekerjaan_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -271,5 +272,36 @@ class FirestoreDatabase {
             ? (query) => query.where('xxx1Nama', isEqualTo: query1)
             : null,
         builder: (data, documentId) => ReferensiModel.fromMap(data, documentId),
+      );
+
+  // *****  Pekerjaan
+  //Method to create/update todoModel
+  Future<void> setPekerjaan(PekerjaanModel pekerjaan) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.pekerjaan(pekerjaan.id),
+        data: pekerjaan.toMap(),
+      );
+
+  //Method to delete todoModel entry
+  Future<void> deletePekerjaan(PekerjaanModel pekerjaan) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.pekerjaan(pekerjaan.id));
+  }
+
+  //Method to retrieve all todos item from the same user based on uid
+  Stream<List<PekerjaanModel>> pekerjaansStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.pekerjaans(),
+        builder: (data, documentId) => PekerjaanModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<PekerjaanModel>> pekerjaanByQ1Stream({@required String query1}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.pekerjaans(),
+        queryBuilder: query1 != null
+            ? (query) => query.where('xxx1Nama', isEqualTo: query1)
+            : null,
+        builder: (data, documentId) => PekerjaanModel.fromMap(data, documentId),
       );
 }

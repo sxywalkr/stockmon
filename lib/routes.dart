@@ -23,6 +23,8 @@ import 'package:mergers/ui/mergr_personel/mergr_personel_screen.dart';
 import 'package:mergers/ui/mergr_personel/create_edit_mergr_penyedia_personel_screen.dart';
 import 'package:mergers/ui/referensi/referensi_screen.dart';
 import 'package:mergers/ui/referensi/create_edit_referensi_screen.dart';
+import 'package:mergers/ui/pekerjaan/pekerjaan_screen.dart';
+import 'package:mergers/ui/pekerjaan/create_edit_pekerjaan_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -54,6 +56,8 @@ class Routes {
       '/create_edit_mergr_penyedia_personel';
   static const String referensi = '/referensi';
   static const String create_edit_referensi = '/create_edit_referensi';
+  static const String pekerjaan = '/pekerjaan';
+  static const String create_edit_pekerjaan = '/create_edit_pekerjaan';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -85,5 +89,8 @@ class Routes {
     referensi: (BuildContext context) => ReferensiScreen(),
     create_edit_referensi: (BuildContext context) =>
         CreateEditReferensiScreen(),
+    pekerjaan: (BuildContext context) => PekerjaanScreen(),
+    create_edit_pekerjaan: (BuildContext context) =>
+        CreateEditPekerjaanScreen(),
   };
 }
