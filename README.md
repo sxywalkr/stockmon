@@ -443,5 +443,7 @@ If you liked my work, don’t forget to ⭐ star the repo to show your support.
 
 ## [License: MIT](LICENSE.md)
 
-flutter 
+flutter build appbundle
+
+flutter build apk --split-per-abi
 
