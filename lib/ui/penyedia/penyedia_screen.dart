@@ -196,11 +196,11 @@ class PenyediaScreen extends StatelessWidget {
                       //       firestoreDatabase.setTodo(todo);
                       //     }),
                       title: Text(penyedias[index].aNamaBadanUsaha),
-                      trailing: IconButton(
-                          icon: Icon(Icons.print),
-                          onPressed: () {
-                            genDocxKualifikasi(penyedias[index]);
-                          }),
+                      // trailing: IconButton(
+                      //     icon: Icon(Icons.print),
+                      //     onPressed: () {
+                      //       genDocxKualifikasi(penyedias[index]);
+                      //     }),
                       onTap: () {
                         Navigator.of(context).pushNamed(
                             Routes.create_edit_penyedia,

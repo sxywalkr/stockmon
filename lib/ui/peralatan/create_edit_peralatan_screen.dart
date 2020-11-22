@@ -116,7 +116,10 @@ class _CreateEditPeralatanScreenState extends State<CreateEditPeralatanScreen> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('Data Peralatan'),
+              Text(
+                'Data Peralatan',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(

@@ -171,7 +171,10 @@ class _CreateEditPekerjaanScreenState extends State<CreateEditPekerjaanScreen> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('I. Data Pengalaman Kerja'),
+              Text(
+                'I. Data Pengalaman Kerja',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(

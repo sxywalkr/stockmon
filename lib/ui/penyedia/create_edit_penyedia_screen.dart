@@ -260,7 +260,10 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('A.	Data Administrasi'),
+              Text(
+                'A.	Data Administrasi',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
@@ -357,7 +360,13 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
                   ),
                 ),
               ),
-              Text('B.	Landasan Hukum Pendirian Badan Usaha'),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'B.	Landasan Hukum Pendirian Badan Usaha',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
@@ -422,7 +431,13 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
                   ),
                 ),
               ),
-              Text('C.	Pengurus Badan Usaha'),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'C.	Pengurus Badan Usaha',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
@@ -471,7 +486,13 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
                   ),
                 ),
               ),
-              Text('D. Izin Usaha'),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'D. Izin Usaha',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
@@ -536,7 +557,13 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
                   ),
                 ),
               ),
-              Text('E. Sertifikat Badan Usaha'),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'E. Sertifikat Badan Usaha',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
@@ -649,7 +676,13 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
                   ),
                 ),
               ),
-              Text('F. Sertifikat Lainnya (Apabila disyaratkan)'),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'F. Sertifikat Lainnya (Apabila disyaratkan)',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
@@ -714,8 +747,17 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
                   ),
                 ),
               ),
-              Text('G. Data Keuangan'),
-              Text('G. 1. Susunan Kepemilikan Saham'),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'G. Data Keuangan',
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+              Text(
+                'G. 1. Susunan Kepemilikan Saham',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
@@ -780,7 +822,10 @@ class _CreateEditPenyediaScreenState extends State<CreateEditPenyediaScreen> {
                   ),
                 ),
               ),
-              Text('G. 2. Pajak'),
+              Text(
+                'G. 2. Pajak',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(

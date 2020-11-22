@@ -116,7 +116,10 @@ class _CreateEditPersonelScreenState extends State<CreateEditPersonelScreen> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('H. Data Personel'),
+              Text(
+                'H. Data Personel',
+                style: Theme.of(context).textTheme.caption,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextFormField(
