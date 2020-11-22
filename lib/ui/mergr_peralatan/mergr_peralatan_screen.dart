@@ -177,12 +177,12 @@ class MergrPeralatanScreen extends StatelessWidget {
                     key: Key(mergrPenyedia[index].id),
                     child: ListTile(
                       title: Text(mergrPenyedia[index].aNamaBadanUsaha),
-                      trailing: IconButton(
-                          icon: Icon(Icons.print),
-                          onPressed: () {
-                            genDocxPeralatan(
-                                context, mergrPenyedia[index].aNamaBadanUsaha);
-                          }),
+                      // trailing: IconButton(
+                      //     icon: Icon(Icons.print),
+                      //     onPressed: () {
+                      //       genDocxPeralatan(
+                      //           context, mergrPenyedia[index].aNamaBadanUsaha);
+                      //     }),
                       onTap: () {
                         Navigator.of(context).pushNamed(
                             Routes.create_edit_mergr_penyedia_peralatan,

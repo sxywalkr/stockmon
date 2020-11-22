@@ -9,7 +9,7 @@ class AppDrawer extends StatelessWidget {
         child: Column(
           children: <Widget>[
             AppBar(
-              title: Text('userName'),
+              title: Text('Mergers'),
               automaticallyImplyLeading: false,
             ),
             Divider(),
@@ -26,14 +26,14 @@ class AppDrawer extends StatelessWidget {
             //         },
             //       )
             //     : SizedBox(height: 1),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Dashboard'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(Routes.home2);
-              },
-            ),
-            Divider(),
+            // ListTile(
+            //   leading: Icon(Icons.home),
+            //   title: Text('Dashboard'),
+            //   onTap: () {
+            //     Navigator.of(context).pushReplacementNamed(Routes.home2);
+            //   },
+            // ),
+            // Divider(),
             ListTile(
               leading: Icon(Icons.support),
               title: Text('Merger Data Penyedia'),

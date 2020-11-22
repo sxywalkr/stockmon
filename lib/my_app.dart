@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
                     //user the first one from the list (in our case, that will be English)
                     return supportedLocales.first;
                   },
-                  title: Provider.of<Flavor>(context).toString(),
+                  title: 'Mergers', // Provider.of<Flavor>(context).toString(),
                   routes: Routes.routes,
                   theme: AppThemes.lightTheme,
                   darkTheme: AppThemes.darkTheme,

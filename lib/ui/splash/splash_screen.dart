@@ -43,6 +43,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   redirect() async {
-    Navigator.of(context).pushReplacementNamed(Routes.home2);
+    Navigator.of(context).pushReplacementNamed(Routes.mergr_penyedia);
   }
 }

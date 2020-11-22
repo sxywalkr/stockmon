@@ -81,8 +81,8 @@ class _MergrPersonelScreenState extends State<MergrPersonelScreen> {
                     key: Key(mergrPenyedia[index].id),
                     child: ListTile(
                       title: Text(mergrPenyedia[index].aNamaBadanUsaha),
-                      trailing: _printOpt(
-                          context, mergrPenyedia[index].aNamaBadanUsaha),
+                      // trailing: _printOpt(
+                      //     context, mergrPenyedia[index].aNamaBadanUsaha),
                       onTap: () {
                         Navigator.of(context).pushNamed(
                             Routes.create_edit_mergr_penyedia_personel,
