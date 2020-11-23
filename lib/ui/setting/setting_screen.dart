@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mergers/app_localizations.dart';
-import 'package:mergers/providers/auth_provider.dart';
-import 'package:mergers/providers/theme_provider.dart';
-import 'package:mergers/routes.dart';
-import 'package:mergers/ui/setting/setting_language_actions.dart';
+import 'package:stockmon/app_localizations.dart';
+import 'package:stockmon/providers/auth_provider.dart';
+import 'package:stockmon/providers/theme_provider.dart';
+import 'package:stockmon/routes.dart';
+import 'package:stockmon/ui/setting/setting_language_actions.dart';
 import 'package:provider/provider.dart';
-import 'package:mergers/ui/drawer/app_drawer.dart';
+import 'package:stockmon/ui/drawer/app_drawer.dart';
 
 class SettingScreen extends StatelessWidget {
   @override

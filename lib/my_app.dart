@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:mergers/app_localizations.dart';
-import 'package:mergers/auth_widget_builder.dart';
-import 'package:mergers/constants/app_themes.dart';
-import 'package:mergers/flavor.dart';
-import 'package:mergers/models/user_model.dart';
-import 'package:mergers/providers/auth_provider.dart';
-import 'package:mergers/providers/language_provider.dart';
-import 'package:mergers/providers/theme_provider.dart';
-import 'package:mergers/routes.dart';
-import 'package:mergers/services/firestore_database.dart';
-import 'package:mergers/ui/auth/sign_in_screen.dart';
-import 'package:mergers/ui/home/home.dart';
+import 'package:stockmon/app_localizations.dart';
+import 'package:stockmon/auth_widget_builder.dart';
+import 'package:stockmon/constants/app_themes.dart';
+import 'package:stockmon/flavor.dart';
+import 'package:stockmon/models/user_model.dart';
+import 'package:stockmon/providers/auth_provider.dart';
+import 'package:stockmon/providers/language_provider.dart';
+import 'package:stockmon/providers/theme_provider.dart';
+import 'package:stockmon/routes.dart';
+import 'package:stockmon/services/firestore_database.dart';
+import 'package:stockmon/ui/auth/sign_in_screen.dart';
+import 'package:stockmon/ui/home/home.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
                     //user the first one from the list (in our case, that will be English)
                     return supportedLocales.first;
                   },
-                  title: 'Mergers', // Provider.of<Flavor>(context).toString(),
+                  title: 'StockMon', // Provider.of<Flavor>(context).toString(),
                   routes: Routes.routes,
                   theme: AppThemes.lightTheme,
                   darkTheme: AppThemes.darkTheme,

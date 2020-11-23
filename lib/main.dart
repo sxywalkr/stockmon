@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mergers/flavor.dart';
-import 'package:mergers/my_app.dart';
-import 'package:mergers/providers/auth_provider.dart';
-import 'package:mergers/providers/language_provider.dart';
-import 'package:mergers/providers/theme_provider.dart';
-import 'package:mergers/services/firestore_database.dart';
+import 'package:stockmon/flavor.dart';
+import 'package:stockmon/my_app.dart';
+import 'package:stockmon/providers/auth_provider.dart';
+import 'package:stockmon/providers/language_provider.dart';
+import 'package:stockmon/providers/theme_provider.dart';
+import 'package:stockmon/services/firestore_database.dart';
 import 'package:provider/provider.dart';
 
 void main() {

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mergers/app_localizations.dart';
-import 'package:mergers/routes.dart';
+import 'package:stockmon/app_localizations.dart';
+import 'package:stockmon/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -43,6 +43,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   redirect() async {
-    Navigator.of(context).pushReplacementNamed(Routes.mergr_penyedia);
+    Navigator.of(context).pushReplacementNamed(Routes.home2);
   }
 }

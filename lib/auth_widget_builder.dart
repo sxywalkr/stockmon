@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mergers/models/user_model.dart';
-import 'package:mergers/providers/auth_provider.dart';
-import 'package:mergers/services/firestore_database.dart';
+import 'package:stockmon/models/user_model.dart';
+import 'package:stockmon/providers/auth_provider.dart';
+import 'package:stockmon/services/firestore_database.dart';
 import 'package:provider/provider.dart';
 
 /*

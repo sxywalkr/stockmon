@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mergers/app_localizations.dart';
-import 'package:mergers/models/todo_model.dart';
-import 'package:mergers/models/user_model.dart';
-import 'package:mergers/providers/auth_provider.dart';
-import 'package:mergers/routes.dart';
-import 'package:mergers/services/firestore_database.dart';
-import 'package:mergers/ui/todo/empty_content.dart';
-import 'package:mergers/ui/todo/todos_extra_actions.dart';
+import 'package:stockmon/app_localizations.dart';
+import 'package:stockmon/models/todo_model.dart';
+import 'package:stockmon/models/user_model.dart';
+import 'package:stockmon/providers/auth_provider.dart';
+import 'package:stockmon/routes.dart';
+import 'package:stockmon/services/firestore_database.dart';
+import 'package:stockmon/ui/todo/empty_content.dart';
+import 'package:stockmon/ui/todo/todos_extra_actions.dart';
 import 'package:provider/provider.dart';
 
 class TodosScreen extends StatelessWidget {

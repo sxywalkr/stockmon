@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mergers/constants/app_font_family.dart';
+import 'package:stockmon/constants/app_font_family.dart';
 
 class AppThemes {
   AppThemes._();

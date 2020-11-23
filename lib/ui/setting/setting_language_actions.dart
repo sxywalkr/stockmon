@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mergers/app_localizations.dart';
-import 'package:mergers/providers/language_provider.dart';
+import 'package:stockmon/app_localizations.dart';
+import 'package:stockmon/providers/language_provider.dart';
 import 'package:provider/provider.dart';
 
 enum LanguagesActions { english, chinese }

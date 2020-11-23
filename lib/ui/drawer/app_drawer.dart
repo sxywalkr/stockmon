@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mergers/routes.dart';
+import 'package:stockmon/routes.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class AppDrawer extends StatelessWidget {
         child: Column(
           children: <Widget>[
             AppBar(
-              title: Text('Mergers'),
+              title: Text('StockMon'),
               automaticallyImplyLeading: false,
             ),
             Divider(),
@@ -26,88 +26,14 @@ class AppDrawer extends StatelessWidget {
             //         },
             //       )
             //     : SizedBox(height: 1),
-            // ListTile(
-            //   leading: Icon(Icons.home),
-            //   title: Text('Dashboard'),
-            //   onTap: () {
-            //     Navigator.of(context).pushReplacementNamed(Routes.home2);
-            //   },
-            // ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Dashboard'),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(Routes.home2);
+              },
+            ),
             // Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Merger Data Penyedia'),
-              onTap: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(Routes.mergr_penyedia);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Merger Data Peralatan'),
-              onTap: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(Routes.mergr_peralatan);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Merger Data Personel'),
-              onTap: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(Routes.mergr_personel);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Data Master Penyedia'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(Routes.penyedia);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Data Master Personel'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(Routes.personel);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Data Master Referensi'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(Routes.referensi);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Data Master Pengalaman Kerja'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(Routes.pengalaman);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Data Master Pekerjaan'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(Routes.pekerjaan);
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.support),
-              title: Text('Data Peralatan'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(Routes.peralatan);
-              },
-            ),
             Divider(),
             ListTile(
               leading: Icon(Icons.settings),

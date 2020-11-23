@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mergers/app_localizations.dart';
-import 'package:mergers/flavor.dart';
-import 'package:mergers/providers/auth_provider.dart';
-import 'package:mergers/routes.dart';
+import 'package:stockmon/app_localizations.dart';
+import 'package:stockmon/flavor.dart';
+import 'package:stockmon/providers/auth_provider.dart';
+import 'package:stockmon/routes.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
