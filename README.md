@@ -2,6 +2,12 @@
 
 This is the **boilerplate project** for anyone that want to create **Flutter mobile application using Provider, Shared Preferences and Firebase**.
 
+## My Goals
+
+- Add Role for AppUser
+- Add User Profile Page
+- Add FcmId
+
 
 ## Motivation
 
