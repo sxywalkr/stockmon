@@ -33,6 +33,14 @@ class AuthProvider extends ChangeNotifier {
 
   Stream<UserModel> get user => _auth.onAuthStateChanged.map(_userFromFirebase);
 
+  String get userUid => _auth
+      // .currentUser().toString();
+      .onAuthStateChanged
+      .map(_userFromFirebase)
+      .map((event) => event.email)
+      .map((event) => event)
+      .toString();
+
   AuthProvider() {
     //initialise object
     _auth = FirebaseAuth.instance;
@@ -74,7 +82,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       final AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-
+      print(result);
       return _userFromFirebase(result.user);
     } catch (e) {
       print("Error on the new user registration = " + e.toString());

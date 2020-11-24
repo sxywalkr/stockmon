@@ -76,6 +76,10 @@ class MyApp extends StatelessWidget {
                     builder: (_, authProviderRef, __) {
                       if (userSnapshot.connectionState ==
                           ConnectionState.active) {
+                        if (userSnapshot.hasData) {
+                          print(
+                              'my_app, cek disini rolenya >> ${userSnapshot.data.uid}');
+                        }
                         return userSnapshot.hasData
                             ? HomeScreen()
                             : SignInScreen();

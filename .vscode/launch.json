@@ -6,7 +6,7 @@
     "configurations": [
         
         {
-            "name": "mergers",
+            "name": "stockmon",
             "request": "launch",
             "type": "dart"
         }

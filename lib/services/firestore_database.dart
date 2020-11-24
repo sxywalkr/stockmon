@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:stockmon/models/todo_model.dart';
 import 'package:stockmon/services/firestore_path.dart';
 import 'package:stockmon/services/firestore_service.dart';
+import 'package:stockmon/models/app_user_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -77,4 +78,32 @@ class FirestoreDatabase {
     }
     await batchDelete.commit();
   }
+
+  // appUsers
+  //Method to create/update appUserModel
+  Future<void> setAppUser(AppUserModel appUser) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.appUser(uid, appUser.id),
+        data: appUser.toMap(),
+      );
+
+  //Method to delete appUserModel entry
+  Future<void> deleteAppUser(AppUserModel appUser) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.appUser(uid, appUser.id));
+  }
+
+  //Method to retrieve AppUserModel object based on the given appUserId
+  Stream<AppUserModel> appUserStream({@required String appUserId}) =>
+      _firestoreService.documentStream(
+        path: FirestorePath.appUser(uid, appUserId),
+        builder: (data, documentId) => AppUserModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve all appUsers item from the same user based on uid
+  Stream<List<AppUserModel>> appUsersStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.appUsers(uid),
+        builder: (data, documentId) => AppUserModel.fromMap(data, documentId),
+      );
 }

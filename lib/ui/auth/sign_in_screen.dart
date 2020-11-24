@@ -29,7 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
       key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
-          _buildBackground(),
+          // _buildBackground(),
           Align(
             alignment: Alignment.center,
             child: _buildForm(context),
@@ -156,35 +156,35 @@ class _SignInScreenState extends State<SignInScreen> {
                               .pushReplacementNamed(Routes.register);
                         },
                       ),
-                Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 70,
-                    ),
-                    Text(
-                      Provider.of<Flavor>(context).toString(),
-                      style: Theme.of(context).textTheme.body2,
-                    ),
-                  ],
-                )),
+                // Center(
+                //     child: Column(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: <Widget>[
+                //     SizedBox(
+                //       height: 70,
+                //     ),
+                //     Text(
+                //       Provider.of<Flavor>(context).toString(),
+                //       style: Theme.of(context).textTheme.body2,
+                //     ),
+                //   ],
+                // )),
               ],
             ),
           ),
         ));
   }
 
-  Widget _buildBackground() {
-    return ClipPath(
-      clipper: SignInCustomClipper(),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.5,
-        color: Theme.of(context).iconTheme.color,
-      ),
-    );
-  }
+  // Widget _buildBackground() {
+  //   return ClipPath(
+  //     clipper: SignInCustomClipper(),
+  //     child: Container(
+  //       width: MediaQuery.of(context).size.width,
+  //       height: MediaQuery.of(context).size.height * 0.5,
+  //       color: Theme.of(context).iconTheme.color,
+  //     ),
+  //   );
+  // }
 }
 
 class SignInCustomClipper extends CustomClipper<Path> {

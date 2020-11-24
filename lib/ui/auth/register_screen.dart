@@ -4,6 +4,8 @@ import 'package:stockmon/models/user_model.dart';
 import 'package:stockmon/providers/auth_provider.dart';
 import 'package:stockmon/routes.dart';
 import 'package:provider/provider.dart';
+import 'package:stockmon/services/firestore_database.dart';
+import 'package:stockmon/models/app_user_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -29,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
-          _buildBackground(),
+          // _buildBackground(),
           Align(
             alignment: Alignment.center,
             child: _buildForm(context),
@@ -48,6 +50,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _buildForm(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    // final firestoreDatabase =
+    //     Provider.of<FirestoreDatabase>(context, listen: false);
 
     return Form(
         key: _formKey,
@@ -122,6 +126,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     _emailController.text,
                                     _passwordController.text);
 
+                            // firestoreDatabase.setAppUser(AppUserModel(
+                            //   id: userModel.uid,
+                            //   appRole: 'Unregister',
+                            //   email: _emailController.text,
+                            //   appFcmId: '_fcmToken',
+                            // ));
+
                             if (userModel == null) {
                               _scaffoldKey.currentState.showSnackBar(SnackBar(
                                 content: Text(AppLocalizations.of(context)
@@ -162,16 +173,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ));
   }
 
-  Widget _buildBackground() {
-    return ClipPath(
-      clipper: SignInCustomClipper(),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.5,
-        color: Theme.of(context).iconTheme.color,
-      ),
-    );
-  }
+  // Widget _buildBackground() {
+  //   return ClipPath(
+  //     clipper: SignInCustomClipper(),
+  //     child: Container(
+  //       width: MediaQuery.of(context).size.width,
+  //       height: MediaQuery.of(context).size.height * 0.5,
+  //       color: Theme.of(context).iconTheme.color,
+  //     ),
+  //   );
+  // }
 }
 
 class SignInCustomClipper extends CustomClipper<Path> {
