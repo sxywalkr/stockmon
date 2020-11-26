@@ -13,6 +13,8 @@ import 'package:stockmon/ui/stokBarangAktif/stokBarangAktifs_screen.dart';
 import 'package:stockmon/ui/stokBarangAktif/create_edit_stokBarangAktif_screen.dart';
 import 'package:stockmon/ui/stokBarangKeluar/stokBarangKeluars_screen.dart';
 import 'package:stockmon/ui/stokBarangKeluar/create_edit_stokBarangKeluar_screen.dart';
+import 'package:stockmon/ui/appUser/appUsers_screen.dart';
+import 'package:stockmon/ui/appUser/create_edit_appUser_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -35,6 +37,8 @@ class Routes {
   static const String stokBarangKeluar = '/stokBarangKeluar';
   static const String create_edit_stokBarangKeluar =
       '/create_edit_stokBarangKeluar';
+  static const String appUser = '/appUser';
+  static const String create_edit_appUser = '/create_edit_appUser';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -53,5 +57,7 @@ class Routes {
     stokBarangKeluar: (BuildContext context) => StokBarangKeluarsScreen(),
     create_edit_stokBarangKeluar: (BuildContext context) =>
         CreateEditStokBarangKeluarScreen(),
+    appUser: (BuildContext context) => AppUsersScreen(),
+    create_edit_appUser: (BuildContext context) => CreateEditAppUserScreen(),
   };
 }

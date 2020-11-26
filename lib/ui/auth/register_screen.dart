@@ -4,8 +4,10 @@ import 'package:stockmon/models/user_model.dart';
 import 'package:stockmon/providers/auth_provider.dart';
 import 'package:stockmon/routes.dart';
 import 'package:provider/provider.dart';
-import 'package:stockmon/services/firestore_database.dart';
-import 'package:stockmon/models/app_user_model.dart';
+// import 'package:stockmon/services/firestore_database.dart';
+// import 'package:stockmon/models/app_user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -17,12 +19,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController _passwordController;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final firebaseMessaging = FirebaseMessaging();
+  String _fcmToken = '';
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController(text: "");
     _passwordController = TextEditingController(text: "");
+    _getFcmToken();
+  }
+
+  void _getFcmToken() {
+    firebaseMessaging.getToken().then((token) {
+      // debugPrint('getToken: $token');
+      setState(() {
+        _fcmToken = token;
+      });
+    });
   }
 
   @override
@@ -50,8 +64,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _buildForm(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    // final firestoreDatabase =
-    //     Provider.of<FirestoreDatabase>(context, listen: false);
 
     return Form(
         key: _formKey,
@@ -126,12 +138,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     _emailController.text,
                                     _passwordController.text);
 
-                            // firestoreDatabase.setAppUser(AppUserModel(
-                            //   id: userModel.uid,
-                            //   appRole: 'Unregister',
-                            //   email: _emailController.text,
-                            //   appFcmId: '_fcmToken',
-                            // ));
+                            final dbReference = Firestore.instance;
+                            dbReference
+                                .collection('appUsers')
+                                .document(userModel.uid)
+                                .setData(
+                              {
+                                'appUserUid': userModel.uid,
+                                'appUserEmail': _emailController.text,
+                                'appRole': 'Unregister',
+                                'appFcmId': _fcmToken,
+                              },
+                            );
 
                             if (userModel == null) {
                               _scaffoldKey.currentState.showSnackBar(SnackBar(

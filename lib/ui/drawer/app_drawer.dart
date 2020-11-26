@@ -49,6 +49,14 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Manage App User'),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(Routes.appUser);
+              },
+            ),
+            Divider(),
+            ListTile(
               leading: Icon(Icons.settings),
               title: Text('Setting'),
               onTap: () {

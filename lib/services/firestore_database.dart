@@ -88,14 +88,14 @@ class FirestoreDatabase {
   //Method to create/update appUserModel
   Future<void> setAppUser(AppUserModel appUser) async =>
       await _firestoreService.setData(
-        path: FirestorePath.appUser(uid, appUser.id),
+        path: FirestorePath.appUser(uid, appUser.appUserUid),
         data: appUser.toMap(),
       );
 
   //Method to delete appUserModel entry
   Future<void> deleteAppUser(AppUserModel appUser) async {
     await _firestoreService.deleteData(
-        path: FirestorePath.appUser(uid, appUser.id));
+        path: FirestorePath.appUser(uid, appUser.appUserUid));
   }
 
   //Method to retrieve AppUserModel object based on the given appUserId

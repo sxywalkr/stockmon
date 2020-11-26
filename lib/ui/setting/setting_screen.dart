@@ -38,13 +38,13 @@ class SettingScreen extends StatelessWidget {
             },
           ),
         ),
-        ListTile(
-          title: Text(AppLocalizations.of(context)
-              .translate("settingLanguageListTitle")),
-          subtitle: Text(AppLocalizations.of(context)
-              .translate("settingLanguageListSubTitle")),
-          trailing: SettingLanguageActions(),
-        ),
+        // ListTile(
+        //   title: Text(AppLocalizations.of(context)
+        //       .translate("settingLanguageListTitle")),
+        //   subtitle: Text(AppLocalizations.of(context)
+        //       .translate("settingLanguageListSubTitle")),
+        //   trailing: SettingLanguageActions(),
+        // ),
         ListTile(
           title: Text(
               AppLocalizations.of(context).translate("settingLogoutListTitle")),
