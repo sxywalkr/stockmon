@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 import 'package:stockmon/models/app_user_model.dart';
 import 'package:stockmon/models/stok_brg_masuk_model.dart';
 import 'package:stockmon/models/stok_brg_aktif_model.dart';
+import 'package:stockmon/models/stok_brg_keluar_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 String generateUid() => Uuid().v4();
@@ -193,5 +194,58 @@ class FirestoreDatabase {
             : null,
         builder: (data, documentId) =>
             StokBarangAktifModel.fromMap(data, documentId),
+      );
+
+  // stokBarangKeluars
+  //Method to create/update all stokBarangKeluarModel
+  Future<void> setStokBarangKeluar(
+          StokBarangKeluarModel stokBarangKeluar) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.stokBarangKeluar(stokBarangKeluar.uidBarang),
+        data: stokBarangKeluar.toMap(),
+      );
+
+  //Method to update partial stokBarangKeluarModel
+  Future<void> updateStokBarangKeluar(
+          StokBarangKeluarModel stokBarangKeluar) async =>
+      await _firestoreService.updateData(
+        path: FirestorePath.stokBarangKeluar(stokBarangKeluar.uidBarang),
+        data: stokBarangKeluar.toMap(),
+      );
+
+  //Method to delete StokBarangKeluarModel entry
+  Future<void> deletestokBarangKeluar(
+      StokBarangKeluarModel stokBarangKeluar) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.stokBarangKeluar(stokBarangKeluar.uidBarang));
+  }
+
+  //Method to retrieve StokBarangKeluarModel object based on the given stokBarangKeluarId
+  Stream<StokBarangKeluarModel> stokBarangKeluarStream(
+          {@required String stokBarangKeluarId}) =>
+      _firestoreService.documentStream(
+        path: FirestorePath.stokBarangKeluar(stokBarangKeluarId),
+        builder: (data, documentId) =>
+            StokBarangKeluarModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve all stokBarangKeluars item from the same user based on uid
+  Stream<List<StokBarangKeluarModel>> stokBarangKeluarsStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.stokBarangKeluars(),
+        builder: (data, documentId) =>
+            StokBarangKeluarModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<StokBarangKeluarModel>> stokBarangKeluarModelByQ1Stream(
+          {@required String query1}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.stokBarangKeluars(),
+        queryBuilder: query1 != null
+            ? (query) => query.where('xxx1Nama', isEqualTo: query1)
+            : null,
+        builder: (data, documentId) =>
+            StokBarangKeluarModel.fromMap(data, documentId),
       );
 }

@@ -40,6 +40,15 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Barang Keluar'),
+              onTap: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(Routes.stokBarangKeluar);
+              },
+            ),
+            Divider(),
+            ListTile(
               leading: Icon(Icons.settings),
               title: Text('Setting'),
               onTap: () {

@@ -16,4 +16,7 @@ class FirestorePath {
 
   static String stokBarangAktif(String itemId) => 'stokBarangAktifs/$itemId';
   static String stokBarangAktifs() => 'stokBarangAktifs';
+
+  static String stokBarangKeluar(String itemId) => 'stokBarangKeluars/$itemId';
+  static String stokBarangKeluars() => 'stokBarangKeluars';
 }
