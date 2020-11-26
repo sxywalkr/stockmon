@@ -9,6 +9,8 @@ import 'package:stockmon/ui/todo/todos_screen.dart';
 import 'package:stockmon/ui/home2/home2_screen.dart';
 import 'package:stockmon/ui/stokBarangMasuk/stokBarangMasuks_screen.dart';
 import 'package:stockmon/ui/stokBarangMasuk/create_edit_stokBarangMasuk_screen.dart';
+import 'package:stockmon/ui/stokBarangAktif/stokBarangAktifs_screen.dart';
+import 'package:stockmon/ui/stokBarangAktif/create_edit_stokBarangAktif_screen.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -25,6 +27,9 @@ class Routes {
   static const String stokBarangMasuk = '/stokBarangMasuk';
   static const String create_edit_stokBarangMasuk =
       '/create_edit_stokBarangMasuk';
+  static const String stokBarangAktif = '/stokBarangAktif';
+  static const String create_edit_stokBarangAktif =
+      '/create_edit_stokBarangAktif';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -37,5 +42,8 @@ class Routes {
     stokBarangMasuk: (BuildContext context) => StokBarangMasuksScreen(),
     create_edit_stokBarangMasuk: (BuildContext context) =>
         CreateEditStokBarangMasukScreen(),
+    stokBarangAktif: (BuildContext context) => StokBarangAktifsScreen(),
+    create_edit_stokBarangAktif: (BuildContext context) =>
+        CreateEditStokBarangAktifScreen(),
   };
 }
