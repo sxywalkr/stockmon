@@ -10,4 +10,10 @@ class FirestorePath {
 
   static String appUser(String uid, String todoId) => 'appUsers/$uid';
   static String appUsers(String uid) => 'appUsers';
+
+  static String stokBarangMasuk(String itemId) => 'stokBarangMasuks/$itemId';
+  static String stokBarangMasuks() => 'stokBarangMasuks';
+
+  static String stokBarangAktif(String itemId) => 'stokBarangAktifs/$itemId';
+  static String stokBarangAktifs() => 'stokBarangAktifs';
 }

@@ -5,9 +5,13 @@ import 'package:meta/meta.dart';
 import 'package:stockmon/models/todo_model.dart';
 import 'package:stockmon/services/firestore_path.dart';
 import 'package:stockmon/services/firestore_service.dart';
+import 'package:uuid/uuid.dart';
 import 'package:stockmon/models/app_user_model.dart';
+import 'package:stockmon/models/stok_brg_masuk_model.dart';
+import 'package:stockmon/models/stok_brg_aktif_model.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
+String generateUid() => Uuid().v4();
 
 /*
 This is the main class access/call for any UI widgets that require to perform
@@ -105,5 +109,89 @@ class FirestoreDatabase {
       _firestoreService.collectionStream(
         path: FirestorePath.appUsers(uid),
         builder: (data, documentId) => AppUserModel.fromMap(data, documentId),
+      );
+
+  // stokBarangMasuks
+  //Method to create/update stokBarangMasukModel
+  Future<void> setstokBarangMasuk(StokBarangMasukModel stokBarangMasuk) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.stokBarangMasuk(stokBarangMasuk.id),
+        data: stokBarangMasuk.toMap(),
+      );
+
+  //Method to delete StokBarangMasukModel entry
+  Future<void> deletestokBarangMasuk(
+      StokBarangMasukModel stokBarangMasuk) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.stokBarangMasuk(stokBarangMasuk.id));
+  }
+
+  //Method to retrieve StokBarangMasukModel object based on the given stokBarangMasukId
+  Stream<StokBarangMasukModel> stokBarangMasukStream(
+          {@required String stokBarangMasukId}) =>
+      _firestoreService.documentStream(
+        path: FirestorePath.stokBarangMasuk(stokBarangMasukId),
+        builder: (data, documentId) =>
+            StokBarangMasukModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve all stokBarangMasuks item from the same user based on uid
+  Stream<List<StokBarangMasukModel>> stokBarangMasuksStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.stokBarangMasuks(),
+        builder: (data, documentId) =>
+            StokBarangMasukModel.fromMap(data, documentId),
+      );
+
+  // stokBarangAktifs
+  //Method to create/update all stokBarangAktifModel
+  Future<void> setStokBarangAktif(StokBarangAktifModel stokBarangAktif) async =>
+      await _firestoreService.setData(
+        path: FirestorePath.stokBarangAktif(stokBarangAktif.uidBarang),
+        data: stokBarangAktif.toMap(),
+      );
+
+  //Method to update partial stokBarangAktifModel
+  Future<void> updateStokBarangAktif(
+          StokBarangAktifModel stokBarangAktif) async =>
+      await _firestoreService.updateData(
+        path: FirestorePath.stokBarangAktif(stokBarangAktif.uidBarang),
+        data: stokBarangAktif.toMap(),
+      );
+
+  //Method to delete StokBarangAktifModel entry
+  Future<void> deletestokBarangAktif(
+      StokBarangAktifModel stokBarangAktif) async {
+    await _firestoreService.deleteData(
+        path: FirestorePath.stokBarangAktif(stokBarangAktif.uidBarang));
+  }
+
+  //Method to retrieve StokBarangAktifModel object based on the given stokBarangAktifId
+  Stream<StokBarangAktifModel> stokBarangAktifStream(
+          {@required String stokBarangAktifId}) =>
+      _firestoreService.documentStream(
+        path: FirestorePath.stokBarangAktif(stokBarangAktifId),
+        builder: (data, documentId) =>
+            StokBarangAktifModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve all stokBarangAktifs item from the same user based on uid
+  Stream<List<StokBarangAktifModel>> stokBarangAktifsStream() =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.stokBarangAktifs(),
+        builder: (data, documentId) =>
+            StokBarangAktifModel.fromMap(data, documentId),
+      );
+
+  //Method to retrieve todoModel object based on the given todoId
+  Stream<List<StokBarangAktifModel>> stokBarangAktifModelByQ1Stream(
+          {@required String query1}) =>
+      _firestoreService.collectionStream(
+        path: FirestorePath.stokBarangAktifs(),
+        queryBuilder: query1 != null
+            ? (query) => query.where('xxx1Nama', isEqualTo: query1)
+            : null,
+        builder: (data, documentId) =>
+            StokBarangAktifModel.fromMap(data, documentId),
       );
 }

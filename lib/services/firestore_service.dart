@@ -21,6 +21,16 @@ class FirestoreService {
     await reference.setData(data, merge: merge);
   }
 
+  Future<void> updateData({
+    @required String path,
+    @required Map<String, dynamic> data,
+    bool merge = false,
+  }) async {
+    final reference = Firestore.instance.document(path);
+    print('$path: $data');
+    await reference.updateData(data);
+  }
+
   Future<void> bulkSet({
     @required String path,
     @required List<Map<String, dynamic>> datas,
