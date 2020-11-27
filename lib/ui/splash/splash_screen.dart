@@ -24,15 +24,20 @@ class _SplashScreenState extends State<SplashScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Center(
-            child: Text(
-          AppLocalizations.of(context).translate("splashTitle"),
-          style: TextStyle(
-            fontSize: Theme.of(context).textTheme.headline.fontSize,
+          child: Text(
+            'StockMon',
+            style: Theme.of(context).textTheme.headline3,
           ),
-        )),
-        FlutterLogo(
-          size: 128,
         ),
+        Center(
+          child: Text(
+            '..loading..',
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ),
+        // FlutterLogo(
+        //   size: 128,
+        // ),
       ],
     )));
   }

@@ -32,6 +32,30 @@ class FirestoreDatabase {
 
   final _firestoreService = FirestoreService.instance;
 
+  // String _appUserRole;
+  // final dbReference = Firestore.instance;
+  // String get appxUserUid {
+  //   return uid;
+  // }
+
+  // String get appxUserRole {
+  //   return _appUserRole;
+  // }
+
+  // Future<void> getRole() async {
+  //   Map<String, dynamic> data1 = {};
+  //   final qSnap1 = await dbReference
+  //       .collection("appUsers")
+  //       .where('appUserUid', isEqualTo: uid)
+  //       .getDocuments();
+  //   for (DocumentSnapshot ds in qSnap1.documents) {
+  //     data1 = ds.data;
+  //   }
+  //   print('get role');
+  //   _appUserRole = data1['appRole'];
+  //   // notifyListeners();
+  // }
+
   //Method to create/update todoModel
   Future<void> setTodo(TodoModel todo) async => await _firestoreService.setData(
         path: FirestorePath.todo(uid, todo.id),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stockmon/models/user_model.dart';
-import 'package:stockmon/models/app_user_model.dart';
+// import 'package:stockmon/models/app_user_model.dart';
 import 'package:stockmon/providers/app_access_level_provider.dart';
 import 'package:stockmon/providers/auth_provider.dart';
 import 'package:stockmon/services/firestore_database.dart';
@@ -49,7 +49,8 @@ class AuthWidgetBuilder extends StatelessWidget {
                 create: (context) => databaseBuilder(context, user.uid),
               ),
               ChangeNotifierProvider<AppAccessLevelProvider>(
-                create: (context) => AppAccessLevelProvider(user.uid, null),
+                create: (context) =>
+                    AppAccessLevelProvider(context, user.uid, null),
               ),
             ],
             child: builder(context, snapshot),

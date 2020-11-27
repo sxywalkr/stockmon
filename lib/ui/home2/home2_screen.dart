@@ -27,7 +27,6 @@ class Home2Screen extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context);
     final firestoreDatabase =
         Provider.of<FirestoreDatabase>(context, listen: false);
-    final appAccessLevelProvider = Provider.of<AppAccessLevelProvider>(context);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -37,8 +36,7 @@ class Home2Screen extends StatelessWidget {
             stream: authProvider.user,
             builder: (context, snapshot) {
               // final UserModel user = snapshot.data;
-              return Text(
-                  'Dashboard ' + '${appAccessLevelProvider.appxUserRole}');
+              return Text('Dashboard ');
             }),
         actions: <Widget>[
           // StreamBuilder(
@@ -78,8 +76,23 @@ class Home2Screen extends StatelessWidget {
   }
 
   Widget _home2(BuildContext context) {
-    return Center(
-      child: Text('StockMon is Stok Monitoring'),
+    final appAccessLevelProvider =
+        Provider.of<AppAccessLevelProvider>(context, listen: false);
+    return Column(
+      children: [
+        Center(
+          child: Text(
+            'StockMon',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+        ),
+        Center(
+          child: Text(
+            '${appAccessLevelProvider.appxUserRole}',
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ),
+      ],
     );
   }
 }

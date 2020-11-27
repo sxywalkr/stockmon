@@ -10,7 +10,7 @@ class AppAccessLevelProvider extends ChangeNotifier {
   String _appUserRole;
   final dbReference = Firestore.instance;
 
-  AppAccessLevelProvider(this._appUserUid, this._items);
+  AppAccessLevelProvider(BuildContext context, this._appUserUid, this._items);
 
   List<AppUserModel> get items {
     return [..._items];
@@ -33,6 +33,7 @@ class AppAccessLevelProvider extends ChangeNotifier {
     for (DocumentSnapshot ds in qSnap1.documents) {
       data1 = ds.data;
     }
+    print('get role');
     _appUserRole = data1['appRole'];
     notifyListeners();
   }

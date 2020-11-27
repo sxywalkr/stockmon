@@ -36,14 +36,14 @@ class AppUsersScreen extends StatelessWidget {
         actions: <Widget>[],
       ),
       drawer: AppDrawer(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-            Routes.create_edit_appUser,
-          );
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     // Navigator.of(context).pushNamed(
+      //     //   Routes.create_edit_appUser,
+      //     // );
+      //   },
+      // ),
       body: WillPopScope(
           onWillPop: () async => false, child: _buildBodySection(context)),
     );
@@ -72,34 +72,36 @@ class AppUsersScreen extends StatelessWidget {
                       )),
                     ),
                     key: Key(appUsers[index].appUserUid),
-                    onDismissed: (direction) {
-                      firestoreDatabase.deleteAppUser(appUsers[index]);
+                    // onDismissed: (direction) {
+                    //   firestoreDatabase.deleteAppUser(appUsers[index]);
 
-                      _scaffoldKey.currentState.showSnackBar(SnackBar(
-                        backgroundColor: Theme.of(context).appBarTheme.color,
-                        content: Text(
-                          'Hapus ' + appUsers[index].appUserEmail,
-                          style:
-                              TextStyle(color: Theme.of(context).canvasColor),
-                        ),
-                        duration: Duration(seconds: 3),
-                        action: SnackBarAction(
-                          label: 'Batal',
-                          textColor: Theme.of(context).canvasColor,
-                          onPressed: () {
-                            firestoreDatabase.setAppUser(appUsers[index]);
-                          },
-                        ),
-                      ));
-                    },
+                    //   _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    //     backgroundColor: Theme.of(context).appBarTheme.color,
+                    //     content: Text(
+                    //       'Hapus ' + appUsers[index].appUserEmail,
+                    //       style:
+                    //           TextStyle(color: Theme.of(context).canvasColor),
+                    //     ),
+                    //     duration: Duration(seconds: 3),
+                    //     action: SnackBarAction(
+                    //       label: 'Batal',
+                    //       textColor: Theme.of(context).canvasColor,
+                    //       onPressed: () {
+                    //         firestoreDatabase.setAppUser(appUsers[index]);
+                    //       },
+                    //     ),
+                    //   ));
+                    // },
                     child: ListTile(
                       title: Text(appUsers[index].appUserEmail),
-                      subtitle: Text(appUsers[index].appRole),
-                      trailing: _setUserRole(context, appUsers[index]),
+                      subtitle: Text('${appUsers[index].appRole}'),
+                      trailing: appUsers[index].appRole == 'App Debug'
+                          ? null
+                          : _setUserRole(context, appUsers[index]),
                       onTap: () {
-                        Navigator.of(context).pushNamed(
-                            Routes.create_edit_appUser,
-                            arguments: appUsers[index]);
+                        // Navigator.of(context).pushNamed(
+                        //     Routes.create_edit_appUser,
+                        //     arguments: appUsers[index]);
                       },
                     ),
                   );
