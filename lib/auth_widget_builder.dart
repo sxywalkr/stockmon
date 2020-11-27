@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stockmon/models/user_model.dart';
+import 'package:stockmon/models/app_user_model.dart';
+import 'package:stockmon/providers/app_access_level_provider.dart';
 import 'package:stockmon/providers/auth_provider.dart';
 import 'package:stockmon/services/firestore_database.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,12 @@ class AuthWidgetBuilder extends StatelessWidget {
       stream: authService.user,
       builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
         final UserModel user = snapshot.data;
+        // final AppUserModel appUserModel = AppUserModel(
+        //   appUserUid: user.uid,
+        //   appUserEmail: user.email,
+        //   // appRole: appRole,
+        //   // appFcmId: appFcmId,
+        // );
         if (user != null) {
           /*
           * For any other Provider services that rely on user data can be
@@ -36,8 +44,12 @@ class AuthWidgetBuilder extends StatelessWidget {
           return MultiProvider(
             providers: [
               Provider<UserModel>.value(value: user),
+              // Provider<AppUserModel>.value(value: appUserModel),
               Provider<FirestoreDatabase>(
                 create: (context) => databaseBuilder(context, user.uid),
+              ),
+              ChangeNotifierProvider<AppAccessLevelProvider>(
+                create: (context) => AppAccessLevelProvider(user.uid, null),
               ),
             ],
             child: builder(context, snapshot),

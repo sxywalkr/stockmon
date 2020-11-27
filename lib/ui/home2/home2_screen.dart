@@ -1,6 +1,7 @@
 // import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:stockmon/providers/app_access_level_provider.dart';
 // import 'package:stockmon/app_localizations.dart';
 
 // import 'package:stockmon/models/user_model.dart';
@@ -26,6 +27,7 @@ class Home2Screen extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context);
     final firestoreDatabase =
         Provider.of<FirestoreDatabase>(context, listen: false);
+    final appAccessLevelProvider = Provider.of<AppAccessLevelProvider>(context);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -35,7 +37,8 @@ class Home2Screen extends StatelessWidget {
             stream: authProvider.user,
             builder: (context, snapshot) {
               // final UserModel user = snapshot.data;
-              return Text('Dashboard');
+              return Text(
+                  'Dashboard ' + '${appAccessLevelProvider.appxUserRole}');
             }),
         actions: <Widget>[
           // StreamBuilder(
