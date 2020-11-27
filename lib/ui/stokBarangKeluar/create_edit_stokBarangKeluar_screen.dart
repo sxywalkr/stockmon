@@ -21,6 +21,7 @@ class _CreateEditStokBarangKeluarScreenState
   StokBarangKeluarModel _stokBarangKeluar;
   String ___uid = '';
   String ___mode = '';
+  Map<String, dynamic> argUser = {};
   TextEditingController _cbxStokBarangAktifController;
   TextEditingController _namaBarangController;
   TextEditingController _jumlahController;
@@ -29,6 +30,8 @@ class _CreateEditStokBarangKeluarScreenState
   TextEditingController _tanggalBeliController;
   TextEditingController _tag1Controller;
   TextEditingController _tag2Controller;
+  TextEditingController _orderByUserController;
+  TextEditingController _orderStatusController;
 
   @override
   void initState() {
@@ -38,12 +41,17 @@ class _CreateEditStokBarangKeluarScreenState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final StokBarangKeluarModel _stokBarangKeluarModel =
-        ModalRoute.of(context).settings.arguments;
-    if (_stokBarangKeluarModel != null) {
-      _stokBarangKeluar = _stokBarangKeluarModel;
+    // print(ModalRoute.of(context).settings.arguments.runtimeType);
+    if (ModalRoute.of(context).settings.arguments.runtimeType !=
+        StokBarangKeluarModel) {
+      argUser = ModalRoute.of(context).settings.arguments;
+    } else {
+      final StokBarangKeluarModel _stokBarangKeluarModel =
+          ModalRoute.of(context).settings.arguments;
+      if (_stokBarangKeluarModel != null) {
+        _stokBarangKeluar = _stokBarangKeluarModel;
+      }
     }
-
     _cbxStokBarangAktifController = TextEditingController(text: 'New');
 
     _namaBarangController = TextEditingController(
@@ -68,6 +76,10 @@ class _CreateEditStokBarangKeluarScreenState
         text: _stokBarangKeluar != null ? _stokBarangKeluar.tag1 : '');
     _tag2Controller = TextEditingController(
         text: _stokBarangKeluar != null ? _stokBarangKeluar.tag2 : '');
+    _orderByUserController = TextEditingController(
+        text: _stokBarangKeluar != null ? _stokBarangKeluar.orderByUser : '');
+    _orderStatusController = TextEditingController(
+        text: _stokBarangKeluar != null ? _stokBarangKeluar.orderStatus : '');
   }
 
   @override
@@ -81,59 +93,55 @@ class _CreateEditStokBarangKeluarScreenState
             Navigator.of(context).pop();
           },
         ),
-        title: Text('Form Pembelian'),
+        title: Text('Form Pemesanan'),
         actions: <Widget>[
-          FlatButton(
-            child: Text("Simpan"),
-            onPressed: () async {
-              if (_formKey.currentState.validate()) {
-                FocusScope.of(context).unfocus();
+          _stokBarangKeluar != null
+              ? Container()
+              : FlatButton(
+                  child: Text("Simpan"),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      FocusScope.of(context).unfocus();
+                      final firestoreDatabase = Provider.of<FirestoreDatabase>(
+                          context,
+                          listen: false);
+                      if (argUser['status'] == 'permintaan') {
+                        final _uid = _stokBarangKeluar != null
+                            ? _stokBarangKeluar.id
+                            : generateUid();
 
-                final firestoreDatabase =
-                    Provider.of<FirestoreDatabase>(context, listen: false);
+                        firestoreDatabase
+                            .setStokBarangKeluar(StokBarangKeluarModel(
+                          id: _stokBarangKeluar != null
+                              ? _stokBarangKeluar.id
+                              : documentIdFromCurrentDate(),
+                          uidBarang: _uid,
+                          namaBarang: _namaBarangController.text,
+                          jumlah: int.tryParse(_jumlahController.text),
+                          harga1: double.tryParse(_harga1Controller.text),
+                          harga2: double.tryParse(_harga1Controller.text),
+                          tanggalJual: _tanggalBeliController.text,
+                          tag1: 'tag1',
+                          tag2: 'tag2',
+                          orderByUser: argUser['userEmail'],
+                          orderStatus: argUser['status'],
+                        ));
 
-                final _uid = _stokBarangKeluar != null
-                    ? _stokBarangKeluar.id
-                    : generateUid();
+                        // notif gudang
+                        print('notif gudang ada request');
+                      } else if (argUser['status'] == 'permintaan approve') {
+                        await _updateStok(
+                          firestoreDatabase,
+                          int.tryParse(_jumlahController.text),
+                          // double.tryParse(_harga1Controller.text),
+                          // double.tryParse(_harga1Controller.text),
+                        );
+                      }
 
-                firestoreDatabase.setStokBarangKeluar(StokBarangKeluarModel(
-                  id: _stokBarangKeluar != null
-                      ? _stokBarangKeluar.id
-                      : documentIdFromCurrentDate(),
-                  uidBarang: _uid,
-                  namaBarang: _namaBarangController.text,
-                  jumlah: int.tryParse(_jumlahController.text),
-                  harga1: double.tryParse(_harga1Controller.text),
-                  harga2: double.tryParse(_harga1Controller.text),
-                  tanggalJual: _tanggalBeliController.text,
-                  tag1: 'tag1',
-                  tag2: 'tag2',
-                ));
-
-                // if ((_stokBarangKeluar == null && ___mode == '') ||
-                //     ___mode == 'add') {
-                //   firestoreDatabase.setStokBarangAktif(StokBarangAktifModel(
-                //     uidBarang: _uid,
-                //     namaBarang: _namaBarangController.text,
-                //     jumlah: int.tryParse(_jumlahController.text),
-                //     harga1: double.tryParse(_harga1Controller.text),
-                //     harga2: double.tryParse(_harga1Controller.text),
-                //     tanggalBeli: _tanggalBeliController.text,
-                //     tag1: 'tag1',
-                //     tag2: 'tag2',
-                //   ));
-                // }
-                await _updateStok(
-                  firestoreDatabase,
-                  int.tryParse(_jumlahController.text),
-                  // double.tryParse(_harga1Controller.text),
-                  // double.tryParse(_harga1Controller.text),
-                );
-
-                Navigator.of(context).pop();
-              }
-            },
-          )
+                      Navigator.of(context).pop();
+                    }
+                  },
+                )
         ],
       ),
       body: Container(
@@ -152,6 +160,8 @@ class _CreateEditStokBarangKeluarScreenState
     _tanggalBeliController.dispose();
     _tag1Controller.dispose();
     _tag2Controller.dispose();
+    _orderByUserController.dispose();
+    _orderStatusController.dispose();
 
     super.dispose();
   }
@@ -218,6 +228,23 @@ class _CreateEditStokBarangKeluarScreenState
                             color: Theme.of(context).iconTheme.color,
                             width: 2)),
                     labelText: 'Tanggal Beli Barang',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: TextFormField(
+                  controller: _orderStatusController,
+                  enabled: false,
+                  // style: Theme.of(context).textTheme.body1,
+                  // validator: (value) =>
+                  //     value.isEmpty ? 'Nama Barang tidak boleh kosong' : null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color,
+                            width: 2)),
+                    labelText: 'Status',
                   ),
                 ),
               ),

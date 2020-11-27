@@ -26,19 +26,25 @@ class StokBarangKeluarsScreen extends StatelessWidget {
             stream: authProvider.user,
             builder: (context, snapshot) {
               final UserModel user = snapshot.data;
-              return Text('Barang Keluar');
+              return Text('Daftar Pesanan Barang');
             }),
         actions: <Widget>[],
       ),
       drawer: AppDrawer(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-            Routes.create_edit_stokBarangKeluar,
-          );
-        },
-      ),
+      floatingActionButton: StreamBuilder(
+          stream: authProvider.user,
+          builder: (context, snapshot) {
+            final UserModel user = snapshot.data;
+            return FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  Routes.create_edit_stokBarangKeluar,
+                  arguments: {'userEmail': user.email, 'status': 'permintaan'},
+                );
+              },
+            );
+          }),
       body: WillPopScope(
           onWillPop: () async => false, child: _buildBodySection(context)),
     );
@@ -67,32 +73,32 @@ class StokBarangKeluarsScreen extends StatelessWidget {
                       )),
                     ),
                     key: Key(stokBarangKeluars[index].id),
-                    onDismissed: (direction) {
-                      firestoreDatabase
-                          .deletestokBarangKeluar(stokBarangKeluars[index]);
+                    // onDismissed: (direction) {
+                    //   firestoreDatabase
+                    //       .deletestokBarangKeluar(stokBarangKeluars[index]);
 
-                      _scaffoldKey.currentState.showSnackBar(SnackBar(
-                        backgroundColor: Theme.of(context).appBarTheme.color,
-                        content: Text(
-                          'Hapus ' + stokBarangKeluars[index].namaBarang,
-                          style:
-                              TextStyle(color: Theme.of(context).canvasColor),
-                        ),
-                        duration: Duration(seconds: 3),
-                        action: SnackBarAction(
-                          label: 'Batal',
-                          textColor: Theme.of(context).canvasColor,
-                          onPressed: () {
-                            firestoreDatabase
-                                .setStokBarangKeluar(stokBarangKeluars[index]);
-                          },
-                        ),
-                      ));
-                    },
+                    //   _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    //     backgroundColor: Theme.of(context).appBarTheme.color,
+                    //     content: Text(
+                    //       'Hapus ' + stokBarangKeluars[index].namaBarang,
+                    //       style:
+                    //           TextStyle(color: Theme.of(context).canvasColor),
+                    //     ),
+                    //     duration: Duration(seconds: 3),
+                    //     action: SnackBarAction(
+                    //       label: 'Batal',
+                    //       textColor: Theme.of(context).canvasColor,
+                    //       onPressed: () {
+                    //         firestoreDatabase
+                    //             .setStokBarangKeluar(stokBarangKeluars[index]);
+                    //       },
+                    //     ),
+                    //   ));
+                    // },
                     child: ListTile(
                       title: Text(stokBarangKeluars[index].namaBarang),
                       subtitle: Text(
-                          'Jumlah : ${stokBarangKeluars[index].jumlah.toString()}'),
+                          'Jumlah: ${stokBarangKeluars[index].jumlah}, status : ${stokBarangKeluars[index].orderStatus}'),
                       onTap: () {
                         Navigator.of(context).pushNamed(
                             Routes.create_edit_stokBarangKeluar,
