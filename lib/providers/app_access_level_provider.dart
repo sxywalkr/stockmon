@@ -33,7 +33,7 @@ class AppAccessLevelProvider extends ChangeNotifier {
     for (DocumentSnapshot ds in qSnap1.documents) {
       data1 = ds.data;
     }
-    print('get role');
+    print('login role >> $_appUserUid ${data1['appRole']}');
     _appUserRole = data1['appRole'];
     notifyListeners();
   }

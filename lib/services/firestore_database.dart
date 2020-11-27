@@ -34,9 +34,9 @@ class FirestoreDatabase {
 
   // String _appUserRole;
   // final dbReference = Firestore.instance;
-  // String get appxUserUid {
-  //   return uid;
-  // }
+  String get appxUserUid {
+    return uid;
+  }
 
   // String get appxUserRole {
   //   return _appUserRole;
@@ -262,12 +262,12 @@ class FirestoreDatabase {
       );
 
   //Method to retrieve todoModel object based on the given todoId
-  Stream<List<StokBarangKeluarModel>> stokBarangKeluarModelByQ1Stream(
+  Stream<List<StokBarangKeluarModel>> stokBarangKeluarModelQbyUserIdStream(
           {@required String query1}) =>
       _firestoreService.collectionStream(
         path: FirestorePath.stokBarangKeluars(),
         queryBuilder: query1 != null
-            ? (query) => query.where('xxx1Nama', isEqualTo: query1)
+            ? (query) => query.where('orderByUser', isEqualTo: query1)
             : null,
         builder: (data, documentId) =>
             StokBarangKeluarModel.fromMap(data, documentId),

@@ -16,8 +16,8 @@ class StokBarangKeluarsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    final firestoreDatabase =
-        Provider.of<FirestoreDatabase>(context, listen: false);
+    // final firestoreDatabase =
+    //     Provider.of<FirestoreDatabase>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -40,7 +40,7 @@ class StokBarangKeluarsScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed(
                   Routes.create_edit_stokBarangKeluar,
-                  arguments: {'userEmail': user.email, 'status': 'permintaan'},
+                  arguments: {'userUid': user.uid, 'status': 'permintaan'},
                 );
               },
             );
@@ -53,9 +53,10 @@ class StokBarangKeluarsScreen extends StatelessWidget {
   Widget _buildBodySection(BuildContext context) {
     final firestoreDatabase =
         Provider.of<FirestoreDatabase>(context, listen: false);
-
+// final appAccessLevelProvider = Provider.of<AppAccessLevelProvider>(context);
     return StreamBuilder(
-        stream: firestoreDatabase.stokBarangKeluarsStream(),
+        stream: firestoreDatabase.stokBarangKeluarModelQbyUserIdStream(
+            query1: firestoreDatabase.appxUserUid),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<StokBarangKeluarModel> stokBarangKeluars = snapshot.data;

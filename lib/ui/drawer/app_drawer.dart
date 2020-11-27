@@ -6,7 +6,8 @@ import 'package:stockmon/providers/app_access_level_provider.dart';
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appAccessLevelProvider = Provider.of<AppAccessLevelProvider>(context);
+    final appAccessLevelProvider =
+        Provider.of<AppAccessLevelProvider>(context, listen: false);
     return Drawer(
       child: SingleChildScrollView(
         child: Column(

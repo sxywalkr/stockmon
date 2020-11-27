@@ -106,16 +106,16 @@ class _CreateEditStokBarangKeluarScreenState
                           context,
                           listen: false);
                       if (argUser['status'] == 'permintaan') {
-                        final _uid = _stokBarangKeluar != null
-                            ? _stokBarangKeluar.id
-                            : generateUid();
+                        // final _uid = _stokBarangKeluar != null
+                        //     ? _stokBarangKeluar.id
+                        //     : generateUid();
 
                         firestoreDatabase
                             .setStokBarangKeluar(StokBarangKeluarModel(
                           id: _stokBarangKeluar != null
                               ? _stokBarangKeluar.id
                               : documentIdFromCurrentDate(),
-                          uidBarang: _uid,
+                          uidBarang: ___uid,
                           namaBarang: _namaBarangController.text,
                           jumlah: int.tryParse(_jumlahController.text),
                           harga1: double.tryParse(_harga1Controller.text),
@@ -123,7 +123,7 @@ class _CreateEditStokBarangKeluarScreenState
                           tanggalJual: _tanggalBeliController.text,
                           tag1: 'tag1',
                           tag2: 'tag2',
-                          orderByUser: argUser['userEmail'],
+                          orderByUser: argUser['userUid'],
                           orderStatus: argUser['status'],
                         ));
 
