@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:stockmon/app_localizations.dart';
 // import 'package:stockmon/models/stok_brg_masuk_model.dart';
-import 'package:stockmon/models/user_model.dart';
+// import 'package:stockmon/models/user_model.dart';
 import 'package:stockmon/providers/auth_provider.dart';
 import 'package:stockmon/routes.dart';
 import 'package:stockmon/services/firestore_database.dart';
@@ -16,8 +16,8 @@ class StokBarangAktifsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    final firestoreDatabase =
-        Provider.of<FirestoreDatabase>(context, listen: false);
+    // final firestoreDatabase =
+    //     Provider.of<FirestoreDatabase>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -25,20 +25,20 @@ class StokBarangAktifsScreen extends StatelessWidget {
         title: StreamBuilder(
             stream: authProvider.user,
             builder: (context, snapshot) {
-              final UserModel user = snapshot.data;
+              // final UserModel user = snapshot.data;
               return Text('Stok Barang');
             }),
         actions: <Widget>[],
       ),
       drawer: AppDrawer(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          // Navigator.of(context).pushNamed(
-          //   Routes.create_edit_stokBarangMasuk,
-          // );
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     // Navigator.of(context).pushNamed(
+      //     //   Routes.create_edit_stokBarangMasuk,
+      //     // );
+      //   },
+      // ),
       body: WillPopScope(
           onWillPop: () async => false, child: _buildBodySection(context)),
     );
@@ -58,14 +58,14 @@ class StokBarangAktifsScreen extends StatelessWidget {
                 itemCount: stokBarangAktifs.length,
                 itemBuilder: (context, index) {
                   return Dismissible(
-                    background: Container(
-                      color: Colors.red,
-                      child: Center(
-                          child: Text(
-                        'Geser hapus',
-                        style: TextStyle(color: Theme.of(context).canvasColor),
-                      )),
-                    ),
+                    // background: Container(
+                    //   color: Colors.red,
+                    //   child: Center(
+                    //       child: Text(
+                    //     'Geser hapus',
+                    //     style: TextStyle(color: Theme.of(context).canvasColor),
+                    //   )),
+                    // ),
                     key: Key(stokBarangAktifs[index].uidBarang),
                     // onDismissed: (direction) {
                     //   firestoreDatabase
@@ -94,9 +94,9 @@ class StokBarangAktifsScreen extends StatelessWidget {
                       subtitle: Text(
                           'Jumlah : ${stokBarangAktifs[index].jumlah.toString()}'),
                       onTap: () {
-                        Navigator.of(context).pushNamed(
-                            Routes.create_edit_stokBarangMasuk,
-                            arguments: stokBarangAktifs[index]);
+                        // Navigator.of(context).pushNamed(
+                        //     Routes.create_edit_stokBarangMasuk,
+                        //     arguments: stokBarangAktifs[index]);
                       },
                     ),
                   );

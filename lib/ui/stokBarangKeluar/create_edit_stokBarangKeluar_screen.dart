@@ -6,6 +6,7 @@ import 'package:stockmon/services/firestore_database.dart';
 import 'package:provider/provider.dart';
 import 'package:stockmon/models/stok_brg_keluar_model.dart';
 import 'package:stockmon/models/stok_brg_aktif_model.dart';
+import 'package:stockmon/providers/app_access_level_provider.dart';
 
 class CreateEditStokBarangKeluarScreen extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _CreateEditStokBarangKeluarScreenState
   StokBarangKeluarModel _stokBarangKeluar;
   String ___uid = '';
   String ___mode = '';
+
   Map<String, dynamic> argUser = {};
   TextEditingController _cbxStokBarangAktifController;
   TextEditingController _namaBarangController;
@@ -105,11 +107,7 @@ class _CreateEditStokBarangKeluarScreenState
                       final firestoreDatabase = Provider.of<FirestoreDatabase>(
                           context,
                           listen: false);
-                      if (argUser['status'] == 'permintaan') {
-                        // final _uid = _stokBarangKeluar != null
-                        //     ? _stokBarangKeluar.id
-                        //     : generateUid();
-
+                      if (argUser['status'] == 'permintaan diproses') {
                         firestoreDatabase
                             .setStokBarangKeluar(StokBarangKeluarModel(
                           id: _stokBarangKeluar != null
@@ -129,13 +127,6 @@ class _CreateEditStokBarangKeluarScreenState
 
                         // notif gudang
                         print('notif gudang ada request');
-                      } else if (argUser['status'] == 'permintaan approve') {
-                        await _updateStok(
-                          firestoreDatabase,
-                          int.tryParse(_jumlahController.text),
-                          // double.tryParse(_harga1Controller.text),
-                          // double.tryParse(_harga1Controller.text),
-                        );
                       }
 
                       Navigator.of(context).pop();
@@ -167,6 +158,8 @@ class _CreateEditStokBarangKeluarScreenState
   }
 
   Widget _buildForm(BuildContext context) {
+    final appAccessLevelProvider =
+        Provider.of<AppAccessLevelProvider>(context, listen: false);
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -179,6 +172,55 @@ class _CreateEditStokBarangKeluarScreenState
               _stokBarangKeluar != null
                   ? Container()
                   : _cbxstokBarangAktif(context),
+              if (_stokBarangKeluar == null)
+                Text(
+                  'Pilih barang yang di pesan',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              if (_stokBarangKeluar != null &&
+                  (appAccessLevelProvider.appxUserRole == 'App Gudang' ||
+                      appAccessLevelProvider.appxUserRole == 'App Debug'))
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FlatButton(
+                          onPressed: () async {
+                            final firestoreDatabase =
+                                Provider.of<FirestoreDatabase>(context,
+                                    listen: false);
+                            await _updateStok(
+                              firestoreDatabase,
+                              int.tryParse(_jumlahController.text),
+                              'permintaan disetujui',
+                              _stokBarangKeluar.id,
+                              _stokBarangKeluar.uidBarang,
+                            );
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Setuju'),
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        FlatButton(
+                          onPressed: () async {
+                            final firestoreDatabase =
+                                Provider.of<FirestoreDatabase>(context,
+                                    listen: false);
+                            await _updateStok(
+                              firestoreDatabase,
+                              int.tryParse(_jumlahController.text),
+                              'permintaan ditolak',
+                              _stokBarangKeluar.id,
+                              _stokBarangKeluar.uidBarang,
+                            );
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Tolak'),
+                          // color: Theme.of(context).,
+                        ),
+                      ],
+                    )),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: TextFormField(
@@ -200,7 +242,11 @@ class _CreateEditStokBarangKeluarScreenState
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: TextFormField(
                   controller: _jumlahController,
-                  enabled: _stokBarangKeluar != null ? false : true,
+                  enabled: _stokBarangKeluar != null ||
+                          ___mode == '' ||
+                          ___mode == 'add'
+                      ? false
+                      : true,
                   // style: Theme.of(context).textTheme.body1,
                   validator: (value) =>
                       value.isEmpty ? 'Jumlah Barang tidak boleh kosong' : null,
@@ -317,22 +363,38 @@ class _CreateEditStokBarangKeluarScreenState
   Future<void> _updateStok(
     FirestoreDatabase firestoreDatabase,
     int jumlah,
+    String statusPermintaan,
+    String idStokBarangKeluar,
+    String uidBarangKeluar,
   ) async {
-    if (___mode == 'update') {
+    if (___mode == '') {
       final dbReference = Firestore.instance;
-
-      Map<String, dynamic> data1 = {};
-      final qSnap1 = await dbReference
-          .collection("stokBarangAktifs")
-          .where('uidBarang', isEqualTo: ___uid)
-          .getDocuments();
-      for (DocumentSnapshot ds in qSnap1.documents) {
-        data1 = ds.data;
+      // status approve, kurangi stok, update status pemesanan
+      if (statusPermintaan == 'permintaan disetujui') {
+        Map<String, dynamic> data1 = {};
+        final qSnap1 = await dbReference
+            .collection("stokBarangAktifs")
+            .where('uidBarang', isEqualTo: uidBarangKeluar)
+            .getDocuments();
+        for (DocumentSnapshot ds in qSnap1.documents) {
+          data1 = ds.data;
+        }
+        dbReference
+            .collection('stokBarangAktifs')
+            .document(uidBarangKeluar)
+            .updateData(
+          {
+            'jumlah': data1['jumlah'] - jumlah,
+          },
+        );
       }
-
-      dbReference.collection('stokBarangAktifs').document(___uid).updateData(
+      // update status pemesanan
+      dbReference
+          .collection('stokBarangKeluars')
+          .document(idStokBarangKeluar)
+          .updateData(
         {
-          'jumlah': data1['jumlah'] - jumlah,
+          'orderStatus': statusPermintaan,
         },
       );
     }

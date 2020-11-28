@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:stockmon/models/app_user_model.dart';
 
 class AppAccessLevelProvider extends ChangeNotifier {
-  List<AppUserModel> _items = [];
+  final dbReference = Firestore.instance;
   final String _appUserUid;
   String _appUserRole;
-  final dbReference = Firestore.instance;
+  List<AppUserModel> _items = [];
 
   AppAccessLevelProvider(BuildContext context, this._appUserUid, this._items);
 

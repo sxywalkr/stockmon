@@ -225,7 +225,7 @@ class FirestoreDatabase {
   Future<void> setStokBarangKeluar(
           StokBarangKeluarModel stokBarangKeluar) async =>
       await _firestoreService.setData(
-        path: FirestorePath.stokBarangKeluar(stokBarangKeluar.uidBarang),
+        path: FirestorePath.stokBarangKeluar(stokBarangKeluar.id),
         data: stokBarangKeluar.toMap(),
       );
 
@@ -241,7 +241,7 @@ class FirestoreDatabase {
   Future<void> deletestokBarangKeluar(
       StokBarangKeluarModel stokBarangKeluar) async {
     await _firestoreService.deleteData(
-        path: FirestorePath.stokBarangKeluar(stokBarangKeluar.uidBarang));
+        path: FirestorePath.stokBarangKeluar(stokBarangKeluar.id));
   }
 
   //Method to retrieve StokBarangKeluarModel object based on the given stokBarangKeluarId

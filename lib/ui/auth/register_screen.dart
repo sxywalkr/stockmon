@@ -76,11 +76,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FlutterLogo(
-                    size: 128,
-                  ),
-                ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                      child: Text(
+                        'StockMon',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    )),
                 TextFormField(
                   controller: _emailController,
                   style: Theme.of(context).textTheme.body1,
@@ -167,8 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.only(top: 48),
                         child: Center(
                             child: Text(
-                          AppLocalizations.of(context)
-                              .translate("loginTxtHaveAccount"),
+                          'Sudah punya akun?',
                           style: Theme.of(context).textTheme.button,
                         )),
                       ),
@@ -177,8 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: null,
                       )
                     : FlatButton(
-                        child: Text(AppLocalizations.of(context)
-                            .translate("loginBtnLinkSignIn")),
+                        child: Text('Login di sini'),
                         textColor: Theme.of(context).iconTheme.color,
                         onPressed: () {
                           Navigator.of(context)

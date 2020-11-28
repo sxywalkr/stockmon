@@ -51,9 +51,11 @@ class AppDrawer extends StatelessWidget {
                 },
               ),
             if (appAccessLevelProvider.appxUserRole == 'App Pegawai' ||
+                appAccessLevelProvider.appxUserRole == 'App Gudang' ||
                 appAccessLevelProvider.appxUserRole == 'App Debug')
               Divider(),
             if (appAccessLevelProvider.appxUserRole == 'App Pegawai' ||
+                appAccessLevelProvider.appxUserRole == 'App Gudang' ||
                 appAccessLevelProvider.appxUserRole == 'App Debug')
               ListTile(
                 leading: Icon(Icons.home),

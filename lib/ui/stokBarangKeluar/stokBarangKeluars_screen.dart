@@ -9,6 +9,7 @@ import 'package:stockmon/ui/drawer/app_drawer.dart';
 import 'package:stockmon/ui/todo/empty_content.dart';
 import 'package:provider/provider.dart';
 import 'package:stockmon/models/stok_brg_keluar_model.dart';
+import 'package:stockmon/providers/app_access_level_provider.dart';
 
 class StokBarangKeluarsScreen extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -25,7 +26,7 @@ class StokBarangKeluarsScreen extends StatelessWidget {
         title: StreamBuilder(
             stream: authProvider.user,
             builder: (context, snapshot) {
-              final UserModel user = snapshot.data;
+              // final UserModel user = snapshot.data;
               return Text('Daftar Pesanan Barang');
             }),
         actions: <Widget>[],
@@ -40,7 +41,10 @@ class StokBarangKeluarsScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed(
                   Routes.create_edit_stokBarangKeluar,
-                  arguments: {'userUid': user.uid, 'status': 'permintaan'},
+                  arguments: {
+                    'userUid': user.uid,
+                    'status': 'permintaan diproses'
+                  },
                 );
               },
             );
@@ -53,10 +57,14 @@ class StokBarangKeluarsScreen extends StatelessWidget {
   Widget _buildBodySection(BuildContext context) {
     final firestoreDatabase =
         Provider.of<FirestoreDatabase>(context, listen: false);
-// final appAccessLevelProvider = Provider.of<AppAccessLevelProvider>(context);
+    final _appUserRole =
+        Provider.of<AppAccessLevelProvider>(context, listen: false)
+            .appxUserRole;
     return StreamBuilder(
-        stream: firestoreDatabase.stokBarangKeluarModelQbyUserIdStream(
-            query1: firestoreDatabase.appxUserUid),
+        stream: _appUserRole == 'App Pegawai'
+            ? firestoreDatabase.stokBarangKeluarModelQbyUserIdStream(
+                query1: firestoreDatabase.appxUserUid)
+            : firestoreDatabase.stokBarangKeluarsStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<StokBarangKeluarModel> stokBarangKeluars = snapshot.data;

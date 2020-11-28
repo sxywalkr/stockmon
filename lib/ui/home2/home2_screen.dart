@@ -25,8 +25,8 @@ class Home2Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    final firestoreDatabase =
-        Provider.of<FirestoreDatabase>(context, listen: false);
+    // final firestoreDatabase =
+    //     Provider.of<FirestoreDatabase>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -61,14 +61,14 @@ class Home2Screen extends StatelessWidget {
           //     }),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          // Navigator.of(context).pushNamed(
-          //   Routes.create_edit_penyedia,
-          // );
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     // Navigator.of(context).pushNamed(
+      //     //   Routes.create_edit_penyedia,
+      //     // );
+      //   },
+      // ),
       body: _home2(context),
       // WillPopScope(
       //     onWillPop: () async => false, child: _buildBodySection(context)),

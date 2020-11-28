@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stockmon/app_localizations.dart';
-import 'package:stockmon/flavor.dart';
+// import 'package:stockmon/flavor.dart';
 import 'package:stockmon/providers/auth_provider.dart';
 import 'package:stockmon/routes.dart';
 import 'package:provider/provider.dart';
@@ -60,11 +60,13 @@ class _SignInScreenState extends State<SignInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FlutterLogo(
-                    size: 128,
-                  ),
-                ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                      child: Text(
+                        'StockMon',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    )),
                 TextFormField(
                   controller: _emailController,
                   style: Theme.of(context).textTheme.body1,
@@ -138,8 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         padding: const EdgeInsets.only(top: 48),
                         child: Center(
                             child: Text(
-                          AppLocalizations.of(context)
-                              .translate("loginTxtDontHaveAccount"),
+                          'Tidak punya akun?',
                           style: Theme.of(context).textTheme.button,
                         )),
                       ),
@@ -148,8 +149,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: null,
                       )
                     : FlatButton(
-                        child: Text(AppLocalizations.of(context)
-                            .translate("loginBtnLinkCreateAccount")),
+                        child: Text('Buat akun'),
                         textColor: Theme.of(context).iconTheme.color,
                         onPressed: () {
                           Navigator.of(context)

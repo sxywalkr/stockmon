@@ -23,21 +23,21 @@ class SettingScreen extends StatelessWidget {
   Widget _buildLayoutSection(BuildContext context) {
     return ListView(
       children: <Widget>[
-        ListTile(
-          title: Text(
-              AppLocalizations.of(context).translate("settingThemeListTitle")),
-          subtitle: Text(AppLocalizations.of(context)
-              .translate("settingThemeListSubTitle")),
-          trailing: Switch(
-            activeColor: Theme.of(context).appBarTheme.color,
-            activeTrackColor: Theme.of(context).textTheme.title.color,
-            value: Provider.of<ThemeProvider>(context).isDarkModeOn,
-            onChanged: (booleanValue) {
-              Provider.of<ThemeProvider>(context, listen: false)
-                  .updateTheme(booleanValue);
-            },
-          ),
-        ),
+        // ListTile(
+        //   title: Text(
+        //       AppLocalizations.of(context).translate("settingThemeListTitle")),
+        //   subtitle: Text(AppLocalizations.of(context)
+        //       .translate("settingThemeListSubTitle")),
+        //   trailing: Switch(
+        //     activeColor: Theme.of(context).appBarTheme.color,
+        //     activeTrackColor: Theme.of(context).textTheme.title.color,
+        //     value: Provider.of<ThemeProvider>(context).isDarkModeOn,
+        //     onChanged: (booleanValue) {
+        //       Provider.of<ThemeProvider>(context, listen: false)
+        //           .updateTheme(booleanValue);
+        //     },
+        //   ),
+        // ),
         // ListTile(
         //   title: Text(AppLocalizations.of(context)
         //       .translate("settingLanguageListTitle")),
@@ -46,10 +46,8 @@ class SettingScreen extends StatelessWidget {
         //   trailing: SettingLanguageActions(),
         // ),
         ListTile(
-          title: Text(
-              AppLocalizations.of(context).translate("settingLogoutListTitle")),
-          subtitle: Text(AppLocalizations.of(context)
-              .translate("settingLogoutListSubTitle")),
+          title: Text('Logout'),
+          subtitle: Text('Keluar dari aplikasi'),
           trailing: RaisedButton(
               onPressed: () {
                 _confirmSignOut(context);
@@ -67,10 +65,8 @@ class SettingScreen extends StatelessWidget {
         builder: (_) => PlatformAlertDialog(
               android: (_) => MaterialAlertDialogData(
                   backgroundColor: Theme.of(context).appBarTheme.color),
-              title: Text(
-                  AppLocalizations.of(context).translate("alertDialogTitle")),
-              content: Text(
-                  AppLocalizations.of(context).translate("alertDialogMessage")),
+              title: Text('Peringatan'),
+              content: Text('Anda akan keluar dari aplikasi. Teruskan?'),
               actions: <Widget>[
                 PlatformDialogAction(
                   child: PlatformText(AppLocalizations.of(context)
