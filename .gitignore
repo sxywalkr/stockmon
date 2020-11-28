@@ -9,6 +9,7 @@
 .history
 .svn/
 .git/
+/android/key.properties
 
 # IntelliJ related
 *.iml

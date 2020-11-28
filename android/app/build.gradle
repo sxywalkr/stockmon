@@ -76,13 +76,13 @@ android {
     // productFlavors {
     //     dev {
     //         dimension "flavor-type"
-    //         applicationId "com.sxywalkr.mergers"
+    //         applicationId "com.sxywalkr.stockmon"
     //         versionCode 1
     //         versionName "1.0"
     //     }
     //     prod{
     //         dimension "flavor-type"
-    //         applicationId "com.sxywalkr.mergers"
+    //         applicationId "com.sxywalkr.stockmon"
     //         versionCode 1
     //         versionName "1.0"
     //     }

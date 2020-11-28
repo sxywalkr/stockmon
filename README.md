@@ -449,7 +449,14 @@ If you liked my work, don’t forget to ⭐ star the repo to show your support.
 
 ## [License: MIT](LICENSE.md)
 
-flutter build appbundle
+flutter build appbundle --no-shrink
 
 flutter build apk --split-per-abi
 
+flutter build apk --split-per-abi --debug --no-shrink
+flutter build apk --split-per-abi --profile --no-shrink
+flutter build apk --split-per-abi --release --no-shrink
+
+?? Optional flutter pub cache repair
+
+// use this flutter build apk --no-shrink
